@@ -281,7 +281,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
                     <a href="#">Friends</a>
                   </div>
                 </div>
-                <!-- /.row 
+                /.row 
               </li>-->
               <!-- Menu Footer-->
               <li class="user-footer">
