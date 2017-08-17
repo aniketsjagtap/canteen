@@ -43,8 +43,22 @@ class Order_model extends CI_Model
      */
     function add_order($params)
     {
-        $this->db->insert('order',$params);
-        return $this->db->insert_id();
+		for($i=0;$i<sizeof($params['rawMaterial_id']);$i++){
+			
+			$tmp['rawMaterial_id'] = $params['rawMaterial_id'][$i];
+			$tmp['quantity'] = $params['quantity'][$i];
+			$tmp['unit_id'] = $params['unit_id'][$i];
+			$tmp['date'] = $params['date'];
+			$tmp['location_id'] = $params['location_id'];
+			
+			
+			 $this->db->insert('order',$tmp);
+			$this->db->insert_id();
+			// echo "<br>**************<br>";
+			 // print_r($tmp);
+		}
+       
+        return true;
     }
     
     /*
