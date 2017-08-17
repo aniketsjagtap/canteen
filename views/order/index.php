@@ -30,7 +30,9 @@
 						</td>
 						<td><?php $registered = date( 'd-m-Y H:i:s', $o['date']); echo $registered; ?></td>
 						<td><?php echo $o['id']; ?></td>
-						<td><?php echo $o['rawMaterial_id']; ?></td>
+						<td><?php foreach($rawMaterial as $rm){
+								if($rm['id'] == $o['rawMaterial_id'])
+									echo $rm['name']; } ?></td>
 						<td><?php echo $o['quantity']; ?></td>
 						
 						<td><?php foreach($unit as $u){

@@ -18,11 +18,13 @@ $('.form_date').datetimepicker({
 	var selectWrapper1 = $('.select_wrapper'); //Input field wrapper
 	var unitWrapper1 = $('.unit_wrapper'); //Input field wrapper
 	var quantityWrapper1 = $('.quantity_wrapper');
+	var quantityWrapper2 = $('.order_quantity_wrapper');
 	
 	// var fieldHTML = '<div><input required type="number" step="0.1" name="price[]" value="" class="form-control"/></div>'; //New input field html 
 	var selectHTML1 = '<div><select required name="rawMaterial_id[]" class="form-control" id="rawMaterial_id" > <option value="">Select Raw Material</Option><?php foreach($rawMaterial as $key => $value){ ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option> <?php } ?></select></div>';
 	var unitHTML1 = '<div><select required name="unit_id[]" class="form-control"><option value="">Select Unit</Option><?php foreach($unit as $key => $value){ ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option><?php } ?></select></div>';
 	var quantityHTML1 = '<div><input required type="number"  step="0.001" name="quantity[]" value="" id="quantity" class="form-control" /></div>';
+	var quantityHTML2 = '<div><input required type="number"  step="0.001" name="orderQuantity[]" value="" id="orderQuantity" class="form-control" /></div>';
 	
 	
 	
@@ -36,6 +38,7 @@ $('.form_date').datetimepicker({
 			
 				$(unitWrapper1).append(unitHTML1); // Add field html
 				$(quantityWrapper1).append(quantityHTML1); // Add field html
+				$(quantityWrapper2).append(quantityHTML2); // Add field html
 			
 		}
 	});
@@ -51,6 +54,7 @@ $('.form_date').datetimepicker({
 			
 				$(unitWrapper1).children().last().remove(); //Remove field html
 				$(quantityWrapper1).children().last().remove(); //Remove field html
+				$(quantityWrapper2).children().last().remove(); //Remove field html
 				x--; //Decrement field counter
 			}
 			
@@ -83,7 +87,7 @@ $('.form_date').datetimepicker({
 							<!--<input required type="hidden" id="dtp_input2" value="" /><br/>-->
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<label for="rawMaterial_id" class="control-label">Raw Material</label>
 						<div class="form-group">
 							<div class="select_wrapper">
@@ -98,7 +102,7 @@ $('.form_date').datetimepicker({
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<label for="quantity" class="control-label">Closing Stock</label>
 						<div class="form-group quantity_wrapper">
 							<div>
@@ -106,7 +110,15 @@ $('.form_date').datetimepicker({
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
+						<label for="orderQuantity" class="control-label">Order Quantity</label>
+						<div class="form-group order_quantity_wrapper">
+							<div>
+								<input required type="number" step="0.1" name="orderQuantity[]" value="" class="form-control" id="quantity" />
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
 						<label for="unit_id" class="control-label">Unit</label>
 						<div class="form-group unit_wrapper">
 							<div>
