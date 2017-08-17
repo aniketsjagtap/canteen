@@ -12,6 +12,7 @@ class Stock extends CI_Controller{
         $this->load->model('Rawmaterial_model');
         $this->load->model('Unit_model');
         $this->load->model('Location_model');
+		 $this->load->model('Order_model');
     } 
 
     /*
@@ -99,17 +100,29 @@ class Stock extends CI_Controller{
 				list($year, $month, $day) = explode('-', $part1);
 				list($hours, $minutes,$seconds) = explode(':', $part2);
 				$timeto =  mktime($hours, $minutes, $seconds, $month, $day, $year);
-				
 				$params = array(
+					'date' => $timeto,
 					'location_id' => $user['location_id'],
+					'quantity' => $this->input->post('orderQuantity'),
 					'unit_id' => $this->input->post('unit_id'),
 					'rawMaterial_id' => $this->input->post('rawMaterial_id'),
-					'quantity' => $this->input->post('quantity'),
-					// 'date' => time(),
-					'date' => $timeto,
 				);
 				
-				$stock_id = $this->Stock_model->add_stock($params);
+				$order_id = $this->Order_model->add_order($params);
+				
+				if($order_id){
+					$params = array(
+						'location_id' => $user['location_id'],
+						'unit_id' => $this->input->post('unit_id'),
+						'rawMaterial_id' => $this->input->post('rawMaterial_id'),
+						'quantity' => $this->input->post('quantity'),
+						// 'date' => time(),
+						'date' => $timeto,
+					);
+					
+					$stock_id = $this->Stock_model->add_stock($params);
+				}
+				
 				redirect('stock/index');
 			}
 			else
