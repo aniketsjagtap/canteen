@@ -1,0 +1,10 @@
+cache/
+config/
+core/
+helpers/
+hooks/
+index.html
+language/
+libraries/
+logs/
+third_party/
