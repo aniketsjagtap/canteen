@@ -25,8 +25,8 @@
 				total_page_salary = parseFloat(total_page_salary);
 				total_salary = parseFloat(total_salary);
 								// Update footer
-				// $('#totalSalary').html(total_page_salary.toFixed(2)+"/"+total_salary.toFixed(2));		
-				$('#totalPrice').html("Total:<br>"+total_page_salary.toFixed(2));		
+				$('#totalPrice').html(total_page_salary.toFixed(2)+"/"+total_salary.toFixed(2));		
+				//$('#totalPrice').html("Total:<br>"+total_page_salary.toFixed(2));		
 				},		
 		})
 		  .columnFilter({ sPlaceHolder: "head:after",
