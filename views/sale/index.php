@@ -3,6 +3,7 @@
 		/*******************************Sales Index***********************************************/
 		
 		$('#data_tbl1').dataTable({	
+		"lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		"sPaginationType": "full_numbers",
 		"footerCallback": function ( row, data, start, end, display ) {
 				var api = this.api(), data;	 
