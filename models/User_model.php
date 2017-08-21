@@ -168,7 +168,9 @@ class User_model extends CI_Model {
 	public function loadSpecialPermission($per_id)
 	{
 		$query = $this->db->query("SELECT permission_id from person_permission WHERE person_id = $per_id");
-		return  $query->result();
+		$user = $query->result();
+		unset($user['password']);
+		return $user ;
 	}
 	/****
 	* Add a profile type of user, default given is 2 that is customer

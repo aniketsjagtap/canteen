@@ -27,7 +27,13 @@
   <link rel="stylesheet" href="<?=base_url('themes/plugins/datepicker/datepicker3.css');?>">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="<?=base_url('themes/plugins/daterangepicker/daterangepicker-bs3.css');?>">
-  <!-- bootstrap wysihtml5 - text editor -->
+
+	<!--My Calender Events -->
+  <link rel="stylesheet" href="<?=base_url('themes/plugins/mycalender/fullcalendar.min.css');?>">
+ <!-- <link rel="stylesheet" href="<?=base_url('themes/plugins/mycalender/fullcalendar.print.css');?>">-->
+ 
+
+ <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?=base_url('themes/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');?>">
  <!-- <link href="<?=base_url('themes/plugins/bootstrap/css/bootstrap.min.css');?>" rel="stylesheet" media="screen">-->
   <link href="<?=base_url('themes/plugins/bootstrap/css/bootstrap-datetimepicker.min.css');?>" rel="stylesheet" media="screen">
@@ -366,7 +372,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 			<li class="treeview">
 			  <a href="#">
 				<i class="fa  fa-users"></i>
-				<span>Users, Locations</span>
+				<span>Users, Events, Locations</span>
 				<i class="fa fa-angle-left pull-right"></i>
 			  </a>
 			  <ul class="treeview-menu">
@@ -374,6 +380,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 				<li><a href="<?php echo site_url('Person/index');?>"><i class="fa  fa-caret-right"></i> Users</a></li>
 				<?php if($p_role['role_id']==1||$p_role['role_id']==2||$p_role['role_id']==7){?>
 				<li><a href="<?php echo site_url('Location/index');?>"><i class="fa  fa-caret-right"></i> Locations</a></li>
+				<li><a href="<?php echo site_url('MyCalender/index');?>"><i class="fa  fa-caret-right"></i> Events</a></li>
 				<?php }?>
 			  </ul>
 			</li>
@@ -581,7 +588,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.1.6
+      <b>Version</b> 1.1.8
     </div>
    <small> Designed & Developed by: </small> <strong><a href="http://jagtechno.com" target="_blank">JagTechno</a></strong> 
   </footer>
@@ -622,8 +629,12 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 <script src="<?=base_url('themes/dist/js/pages/dashboard.js');?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url('themes/dist/js/demo.js');?>"></script>
+<!--Data tables-->
 <script src="<?=base_url('themes/plugins/bootstrap/js/bootstrap.min.js');?>"></script>
 <script src="<?=base_url('themes/plugins/bootstrap/js/bootstrap-datetimepicker.js');?>" charset="UTF-8"></script>
+<!--My Calender Events-->
+<script src="<?=base_url('themes/plugins/mycalender/jquery-ui.custom.min.js');?>"></script>
+<script src="<?=base_url('themes/plugins/mycalender/fullcalendar.min.js');?>"></script>
 <script>
 
 </script>
