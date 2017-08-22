@@ -108,6 +108,7 @@
             $.ajax({
               url: 'http://localhost/Canteen/index.php/MyCalender/delete_events',
               data: 'id=' + event.id+'&p_id='+person_id,
+			  crossDomain: true,
 			  type: "POST",
               success: function (json) {
                 $('#calendar1').fullCalendar('removeEvents', event.id);
