@@ -214,7 +214,7 @@ class MyCalender extends CI_Controller{
 		echo json_encode($this->MyCalender_model->get_all_events());
 	}
 	function add_events(){
-
+		header('Access-Control-Allow-Origin: *'); 
 		if(isset($_POST) && count($_POST) > 0 )   
 		{  
 			$p_id = $this->input->post('p_id');

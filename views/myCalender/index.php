@@ -65,6 +65,7 @@
             $.ajax({
               url: 'http://localhost/Canteen/index.php/MyCalender/add_events',
               data: 'title=' + title + '&start=' + start + '&end=' + end+'&p_id='+person_id+'&loc_id='+location_id,
+			   crossDomain: true,
               type: "POST",
               success: function (json) {
                 alert('Added Successfully');
