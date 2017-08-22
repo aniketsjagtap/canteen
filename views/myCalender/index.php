@@ -32,10 +32,10 @@
           right: 'month,agendaWeek,agendaDay'
         },
 
-        // events: "http://localhost/Canteen/index.php/MyCalender/events",
+        // events: "http://symbieat.jagtechno.com/index.php/MyCalender/events",
 		events: function(start, end, timezone, callback) {
         $.ajax({
-            url: 'http://localhost/Canteen/index.php/MyCalender/events',
+            url: 'http://symbieat.jagtechno.com/index.php/MyCalender/events',
             dataType: 'json',
 			crossDomain: true,
              type: "POST",
@@ -63,7 +63,7 @@
             var start = fmt(start);
             var end = fmt(end);
             $.ajax({
-              url: 'http://localhost/Canteen/index.php/MyCalender/add_events',
+              url: 'http://symbieat.jagtechno.com/index.php/MyCalender/add_events',
               data: 'title=' + title + '&start=' + start + '&end=' + end+'&p_id='+person_id+'&loc_id='+location_id,
 			   crossDomain: true,
               type: "POST",
@@ -94,7 +94,7 @@
           var start = fmt(event.start);
           var end = fmt(event.end);
           $.ajax({
-            url: 'http://localhost/Canteen/index.php/MyCalender/update_events',
+            url: 'http://symbieat.jagtechno.com/index.php/MyCalender/update_events',
             data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
             type: "POST",
             success: function (json) {
@@ -107,7 +107,7 @@
           if (decision) {
 			//alert(event.id);
             $.ajax({
-              url: 'http://localhost/Canteen/index.php/MyCalender/delete_events',
+              url: 'http://symbieat.jagtechno.com/index.php/MyCalender/delete_events',
               data: 'id=' + event.id+'&p_id='+person_id,
 			  crossDomain: true,
 			  type: "POST",
@@ -128,7 +128,7 @@
           var start = fmt(event.start);
           var end = fmt(event.end);
           $.ajax({
-            url: 'http://localhost/fullcalendar/update_events.php',
+            url: 'http://symbieat.jagtechno.com/index.php/MyCalender/update_events.php',
             data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
             type: "POST",
             success: function (json) {
