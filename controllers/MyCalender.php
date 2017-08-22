@@ -210,6 +210,7 @@ class MyCalender extends CI_Controller{
     }
 	
 	function events(){
+		header('Access-Control-Allow-Origin: *'); 
 		echo json_encode($this->MyCalender_model->get_all_events());
 	}
 	function add_events(){
