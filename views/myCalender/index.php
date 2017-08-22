@@ -32,7 +32,20 @@
           right: 'month,agendaWeek,agendaDay'
         },
 
-        events: "http://localhost/Canteen/index.php/MyCalender/events",
+        // events: "http://localhost/Canteen/index.php/MyCalender/events",
+		events: function(start, end, timezone, callback) {
+        $.ajax({
+            url: 'http://localhost/Canteen/index.php/MyCalender/events',
+            dataType: 'json',
+			crossDomain: true,
+             type: "POST",
+            success: function(doc) {
+                var events = [];
+				events = doc;
+                callback(events);
+            }
+        });
+    },
 
         // Convert the allDay from string to boolean
         eventRender: function (event, element, view) {
