@@ -38,6 +38,9 @@
  <!-- <link href="<?=base_url('themes/plugins/bootstrap/css/bootstrap.min.css');?>" rel="stylesheet" media="screen">-->
   <link href="<?=base_url('themes/plugins/bootstrap/css/bootstrap-datetimepicker.min.css');?>" rel="stylesheet" media="screen">
 
+   <link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/css/dataTables.jqueryui.css');?>" rel="stylesheet" media="screen">
+   <link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/css/jquery-ui.css');?>" rel="stylesheet" media="screen">
+   <link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/buttons.dataTables.min.css');?>" rel="stylesheet" media="screen">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -203,7 +206,7 @@ function searchTable(inputVal)
 }
 
 .field_wrapper div{ margin-bottom:10px;}
-.formula_wrapper div{ margin-bottom:10px;}
+.formula_wrapper div,.messformula_wrapper div{ margin-bottom:10px;}
 .select_wrapper div{ margin-bottom:10px;}
 .sales_wrapper div{ margin-bottom:10px;}
 .quantity_wrapper div,.order_quantity_wrapper div{ margin-bottom:10px;}
@@ -635,6 +638,16 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 <!--My Calender Events-->
 <script src="<?=base_url('themes/plugins/mycalender/jquery-ui.custom.min.js');?>"></script>
 <script src="<?=base_url('themes/plugins/mycalender/fullcalendar.min.js');?>"></script>
+
+<script src="<?=base_url('themes/plugins/yadcf/jquery.dataTables.yadcf.js');?>"></script>
+<script src="<?=base_url('themes/plugins/datatables/dataTables.buttons.min.js');?>"></script>
+<script src="<?=base_url('themes/plugins/datatables/buttons.flash.min.js');?>"></script>
+<script src="<?=base_url('themes/plugins/datatables/jszip.min.js');?>"></script>
+<script src="<?=base_url('themes/plugins/datatables/pdfmake.min.js');?>"></script>
+<script src="<?=base_url('themes/plugins/datatables/vfs_fonts.js');?>"></script>
+<script src="<?=base_url('themes/plugins/datatables/buttons.html5.min.js');?>"></script>
+<script src="<?=base_url('themes/plugins/datatables/buttons.print.min.js');?>"></script>
+<script src="<?=base_url('themes/plugins/datatables/dataTables.jqueryui.js');?>"></script>
 <script>
 
 </script>

@@ -15,11 +15,19 @@ class Product_rawmaterial_model extends CI_Model
         return $this->db->get('product_rawmaterial')->result_array();
     }
 	/*
-     * Get  rawMaterial by product_id
+     * Get  first rawMaterial by product_id
      */
     function get_product_first_rawMaterial($prod_id)
     {
       return $this->db->get_where('product_rawmaterial',array('product_id'=>$prod_id))->row_array();
+    }
+	
+	/*
+     * Get  all rawMaterial by product_id
+     */
+    function get_product_all_rawMaterial($prod_id)
+    {
+      return $this->db->get_where('product_rawmaterial',array('product_id'=>$prod_id))->result_array();
     }
         
     /*
@@ -38,6 +46,7 @@ class Product_rawmaterial_model extends CI_Model
 			$tmp['rawMaterial_id'] = $params['rawMaterial_id'][$i];
 			$tmp['formula'] = $params['formula'][$i];
 			$tmp['partyFormula'] = $params['partyFormula'][$i];
+			$tmp['messFormula'] = $params['messFormula'][$i];
 			$this->db->insert('product_rawmaterial',$tmp);
 			$this->db->insert_id();
 		}

@@ -152,11 +152,30 @@ class Report extends CI_Controller{
 				$this->data['cat_id'] = $this->input->post('category_id');
 				//echo date( 'm/d/Y H:i:s', $opening )." : ".date( 'm/d/Y H:i:s', $close ).'<br>'.$closing." : ".$open;
 				
-				$this->data['rawMaterial'] = null;
+				$this->data['rawMaterial'] = $this->Rawmaterial_model->get_all_rawmaterial();;
 				$this->data['rawMaterialType'] = null;
 				$this->data['categoryType'] = null;
 				
-				for($i=0;$i<sizeof($this->data['sales_report']);$i++)
+			
+					
+					$array = $this->data['purchase_report'];
+					$result = array();
+					foreach ($array as $val) {
+							//print_r( $val );
+						if (!isset($result[$val['rawMaterial_id']]))
+							$result[$val['rawMaterial_id']] = $val;
+						else
+							$result[$val['rawMaterial_id']]['quantity'] += $val['quantity'];
+							
+					}
+					$this->data['purchase_report'] = array_values($result);
+				//redirect('report/index');
+				// echo "<pre>";
+				// print_r($this->data['sales_report']);
+				// echo "</pre>";
+				
+				if($this->data['cat_id']== 2){ //get MRP item report MRP_Item_category = 2
+						for($i=0;$i<sizeof($this->data['sales_report']);$i++)
 				{
 					$this->data['sales_report'][$i]['rawMaterial'] = $this->Product_rawmaterial_model->get_product_first_rawMaterial($this->data['sales_report'][$i]['product_id']);
 					$this->data['rawMaterialType'][$i] = $this->Rawmaterial_model->get_rawmaterial($this->data['sales_report'][$i]['rawMaterial']['rawMaterial_id']);
@@ -179,26 +198,170 @@ class Report extends CI_Controller{
 					}
 					$this->data['sales_report'] = array_values($result);
 					
-					$array = $this->data['purchase_report'];
-					$result = array();
-					foreach ($array as $val) {
-							//print_r( $val );
-						if (!isset($result[$val['rawMaterial_id']]))
-							$result[$val['rawMaterial_id']] = $val;
-						else
-							$result[$val['rawMaterial_id']]['quantity'] += $val['quantity'];
-							
-					}
-					$this->data['purchase_report'] = array_values($result);
-				//redirect('report/index');
-				// echo "<pre>";
-				// print_r($result);
-				// echo "</pre>";
-				
-				if($this->data['cat_id']== 2){ //get MRP item report MRP_Item_category = 2
 					$this->template
 						->title('Welcome','My Aapp')
 						->build('report/index',$this->data);
+				}
+				else if($this->data['cat_id']== 1){ //get MRP item report cook_n_sale_category = 1
+				
+
+				for($i=0;$i<sizeof($this->data['sales_report']);$i++)
+				//	for($i=0;$i<7;$i++)
+				{
+					$this->data['sales_report'][$i]['rawMaterial'] = $this->Product_rawmaterial_model->get_product_all_rawMaterial($this->data['sales_report'][$i]['product_id']);
+					
+					for($j=0;$j<sizeof($this->data['sales_report'][$i]['rawMaterial']);$j++){
+						$this->data['sales_report'][$i]['rawMaterial'][$j] = $this->data['sales_report'][$i]['rawMaterial'][$j]['rawMaterial_id'];
+						
+						$this->data['rawMaterialType'][$i] = $this->Rawmaterial_model->get_rawmaterial($this->data['sales_report'][$i]['rawMaterial'][$j]);
+						$this->data['sales_report'][$i]['rawMaterialType'][$j] = $this->data['rawMaterialType'][$i]['type_id'];
+						$this->data['category_data'][$i] = $this->Type_model->get_Type($this->data['sales_report'][$i]['rawMaterialType'][$j]);
+						$this->data['categoryType'][$i] = $this->Category_model->get_category($this->data['category_data'][$i]['category_id']);
+						$this->data['sales_report'][$i]['categoryType'] = $this->data['categoryType'][$i]['id'];
+						$this->data['sales_report'][$i]['categoryName'] = $this->data['categoryType'][$i]['name'];
+						$this->data['sales_report'][$i]['divisionType'] = $this->data['categoryType'][$i]['division_id'];
+					}
+				}
+				
+					
+					$array = $this->data['sales_report'];
+					$result = array();
+					// echo"<pre>";
+					//print_r( $array );
+					
+					foreach ($array as $val) {
+							
+						if (!isset($result[$val['product_id']]))
+							$result[$val['product_id']] = $val;
+							
+						else
+							$result[$val['product_id']]['quantity'] += $val['quantity'];
+							
+							
+					}
+					$this->data['sales_report'] = array_values($result);
+					
+					
+					
+					
+					$arr = array();
+					$i = 1;
+					foreach ($array as $val) {
+					
+						if($val['categoryType'] == 1){
+						 //print_r($val['categoryName'] );
+						
+						if(isset($val['rawMaterial'])){
+							
+							foreach($val['rawMaterial'] as $key){
+									$arr[$i] =  $key;
+									$i++;
+								}
+							}
+						
+						}	
+					}
+					$arr1 = array();
+					$i=0;
+					// echo"<pre>";
+					// print_r($arr);
+					// //print_r($sales);
+					// echo "</pre>";
+					// return true;
+					$this->data['product_rawMaterial'] = null;
+					foreach($this->data['rawMaterial'] as $key=>$val)
+					{
+
+						foreach(array_unique($arr) as $key1=>$val1)
+						{
+							
+							
+							if($val1==$val['id']){
+							
+								$this->data['product_rawMaterial'][$i] = $val;
+								$i++;
+							}
+						}
+					}
+					
+					$sales = $this->data['sales_report'];
+					// print_r($this->data['product_rawMaterial']);
+					// return true;
+					$productRawMaterial = $this->data['product_rawMaterial'];
+					
+					if(isset($productRawMaterial)){
+						foreach($productRawMaterial as $key=>$val){
+						// print_r($val['id']);
+						$i=0;
+						
+							foreach($sales as $key1=>$val1){
+							
+								if(! strcmp($val1['categoryName'],"Cook n Sale")){
+								//print_r($val1['categoryName']);//&& !strcmp($val1['categoryName'],"Cook n Sale")
+								if((isset($val1['rawMaterial'])))
+								{
+									
+									foreach($val1['rawMaterial'] as $subkey=>$subval){
+											// echo "<pre>";
+											// print_r($subkey);
+											// echo "</pre>";
+											
+										if($productRawMaterial[$key]['id']==$subval)
+										{
+											$productRawMaterial[$key]['product'][$i] = $sales[$key1]['product_id'];
+											$productRawMaterial[$key]['product'][$i] = $this->Report_model->get_product_sales($productRawMaterial[$key]['product'][$i]);
+											$rawmat = $this->Product_rawmaterial_model->get_product_all_rawMaterial($sales[$key1]['product_id']);
+											// echo sizeof($val1['rawMaterial']);
+											// echo "<br>";
+											
+											foreach($rawmat as $k1 => $v1){
+												if($val['id'] == $v1['rawMaterial_id']){
+													$productRawMaterial[$key]['product'][$i]['formula'] = $v1['formula'];
+													$productRawMaterial[$key]['product'][$i]['partyFormula'] = $v1['partyFormula'];
+													$productRawMaterial[$key]['product'][$i]['messFormula'] = $v1['messFormula'];
+											// print_r($i);
+											// echo "=>";
+											// //print_r($val1['rawMaterial']);
+											// print_r($val1['rawMaterial'][$k1]);
+											// echo "=>";
+											// print_r($k1);
+											// echo "=>";
+											// print_r($v1);
+											// print_r($v1['rawMaterial_id']);
+											// echo "<br>";
+											
+											//break;
+											}
+											}
+											$i++;
+											
+										}
+										else{
+											
+										}
+										
+									}
+									
+								}
+								
+							 }
+							 
+							}
+						}
+					}
+					$this->data['product_rawMaterial'] = $productRawMaterial;
+					// print_r($this->data['product_rawMaterial']);
+					// echo"</pre>";
+					
+					// echo"<pre>";
+					// // print_r($rawmat);
+					// print_r($this->data['product_rawMaterial']);
+					// echo "</pre>";
+					// return true;
+					
+					$this->template
+						->title('Welcome','My Aapp')
+						->build('report/cooknsale',$this->data);
 				}else{ // get cook n sale item report
 					$this->template
 						->title('Welcome','My Aapp')

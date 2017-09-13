@@ -55,6 +55,15 @@ class Report_model extends CI_Model
         $this->db->order_by('date', 'asc');
         return $this->db->get_where('sales',array('location_id'=>$location_id))->result_array();
     }
+	
+	/*
+     * Get all sales
+     */
+    function get_product_sales($product_id)
+    {
+        $this->db->order_by('date', 'asc');
+        return $this->db->get_where('sales',array('product_id'=>$product_id))->row_array();
+    }
         
     /*
      * function to add new sale

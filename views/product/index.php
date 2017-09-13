@@ -67,12 +67,14 @@
 					<th>Raw Material</th>
 					<th>Cash Formula</th>
 					<th>Party Orders Formula</th>
+					<th>Mess Formula</th>
 					<th>Actions</th>
                    		</tr>
                    		<tr>
 					<th></th>
 					<th></th>
 					<th id="totalPrice"></th>
+					<th></th>
 					<th></th>
 					<th></th>
 					<th></th>
@@ -86,6 +88,7 @@
 							// echo"<br><br>";
 							// echo"Raw Material: ";print_r($rawmaterial);
 						// print'</pre>';
+						// return true;
 						$i=1;foreach($product as $p){ ?>
                     <tr>
 						<td><?php echo $i; ?></td>
@@ -122,6 +125,18 @@
 									<table>
 										<tr>
 											<td><?php echo $r['partyFormula']; ?></td>
+										</tr>
+									</table>
+								
+							<?php }}?>
+						</td>
+						<td>
+						<?php foreach($rawmaterial as $r){ ?>
+								<?php if($r['product_id']==$p['id']){?>
+								
+									<table>
+										<tr>
+											<td><?php echo $r['messFormula']; ?></td>
 										</tr>
 									</table>
 								

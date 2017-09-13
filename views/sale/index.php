@@ -42,7 +42,7 @@
 					null,
 					null,
 					null,
-					{ type: "date-range", sRangeFormat: "Start:{from} End:{to}"},
+					{ type:"text"},
 					null
 				]
 		});
@@ -132,7 +132,7 @@
 								if($s['product_id']== $p['id'])
 									echo ($p['price']*$s['quantity']);}  ?></td>
 						<td><?php echo $s['remark']; ?></td>
-						<td><?php $registered = date( 'm/d/Y', $s['date'] );
+						<td><?php $registered = date( 'd/m/Y', $s['date'] );
 								echo $registered; ?></td>
 						<td>
                             <a href="<?php echo site_url('sale/edit/'.$s['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 

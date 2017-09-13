@@ -2,7 +2,14 @@
 $(document).ready(function(){
 /********************Sales Report Index*******************************/			
 	$('#sales_report').dataTable({	
-		"lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+	"dom": 'Bfrtip',
+			"lengthMenu": [
+							[ 10, 25, 50, -1 ],
+							[ '10 rows', '25 rows', '50 rows', 'Show all' ]
+						],
+			"buttons": [
+						'pageLength', 'excel', 'pdf', 'print' , 
+						],
 		"sPaginationType": "full_numbers",
 		"footerCallback": function ( row, data, start, end, display ) {
 				var api = this.api(), data;	 
@@ -41,7 +48,7 @@ $(document).ready(function(){
 				$('#totalPrice').html("Total:<br>"+total_page_salary.toFixed(2));		
 				},		
 		})
-		  .columnFilter({ sPlaceHolder: "head:after",
+		  .columnFilter({ 
 			aoColumns: [ null,	
 					null,
 					null,
@@ -97,7 +104,6 @@ $(document).ready(function(){
                   <table  id="sales_report" class="table table-striped text-center table-bordered" >
 				<!--<table class="table table-striped " id="example">-->
 					<thead>
-						<tr>
 							<th>Sr. No.</th>
 							
 							<th>Product</th>
@@ -112,30 +118,11 @@ $(document).ready(function(){
 							<th>Difference</th>
 							
 							<th>Amount</th>
-							
-							
-						</tr>
+						</thead>
 						
-						
-							<tr>
-								<th></th>
 							
-								
-								
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								
-								<th id="totalPrice"></th>
-								
-							</tr>
 						
-					</thead>
+					
                     <?php $i=1; // echo"<pre>"; print_r($purchase_report);echo"</pre>";	
 							foreach($sales_report as $s){ 
 							if($s['categoryType']== $cat_id)
@@ -213,6 +200,19 @@ $(document).ready(function(){
 						
                     </tr>
                     <?php $i++; }} ?>
+					<tfoot>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th id="totalPrice"></th>
+								
+					</tfoot>
                 </table>
                                 
             </div>

@@ -44,6 +44,7 @@ class Product extends CI_Controller{
 				$this->data['rawmaterial'][$i]['product_id'] =$this->data['productRawMaterial'][$i]['product_id'];
 				$this->data['rawmaterial'][$i]['formula'] =$this->data['productRawMaterial'][$i]['formula'];
 				$this->data['rawmaterial'][$i]['partyFormula'] =$this->data['productRawMaterial'][$i]['partyFormula'];
+				$this->data['rawmaterial'][$i]['messFormula'] =$this->data['productRawMaterial'][$i]['messFormula'];
 				
 				for($j=0; $j<sizeof($this->data['product']);$j++){
 					if($this->data['product'][$j]['id']==$this->data['rawmaterial'][$i]['product_id'])
@@ -98,6 +99,7 @@ class Product extends CI_Controller{
 					'rawMaterial_id' => $this->input->post('rawMaterial_id'),
 					'formula' => $this->input->post('field_name'),
 					'partyFormula' => $this->input->post('formula_name'),
+					'messFormula' => $this->input->post('messformula_name'),
 				);
 				$this->Product_rawmaterial_model->add_product_rawMaterial($params1);
 				//var_dump($params1);
@@ -167,6 +169,7 @@ class Product extends CI_Controller{
 						'rawMaterial_id' => $this->input->post('rawMaterial_id'),
 						'formula' => $this->input->post('field_name'),
 						'partyFormula' => $this->input->post('formula_name'),
+						'messFormula' => $this->input->post('messformula_name'),
 						);
 						$this->Product_rawmaterial_model->add_product_rawMaterial($params1);
 						redirect('product/index');
