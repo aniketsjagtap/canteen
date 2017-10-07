@@ -99,7 +99,7 @@ class Product extends CI_Controller{
 					'rawMaterial_id' => $this->input->post('rawMaterial_id'),
 					'formula' => $this->input->post('field_name'),
 					'partyFormula' => $this->input->post('formula_name'),
-					'messFormula' => $this->input->post('messformula_name'),
+					'messFormula' => $this->input->post('messformula_num'),
 				);
 				$this->Product_rawmaterial_model->add_product_rawMaterial($params1);
 				//var_dump($params1);
@@ -169,7 +169,7 @@ class Product extends CI_Controller{
 						'rawMaterial_id' => $this->input->post('rawMaterial_id'),
 						'formula' => $this->input->post('field_name'),
 						'partyFormula' => $this->input->post('formula_name'),
-						'messFormula' => $this->input->post('messformula_name'),
+						'messFormula' => $this->input->post('messformula_num'),
 						);
 						$this->Product_rawmaterial_model->add_product_rawMaterial($params1);
 						redirect('product/index');
