@@ -11,7 +11,7 @@ $(document).ready(function(){
 	
 	var fieldHTML = '<div><input required type="number" step="0.1" name="field_name[]" value="" class="form-control"/></div>'; //New input field html 
 	var formulaFieldHTML = '<div><input required type="number" step="0.1" name="formula_name[]" value="" class="form-control"/></div>'; //New input field html 
-	var messformulaFieldHTML = '<div><input required type="number" step="0.1" name="messformula_name[]" value="" class="form-control"/></div>'; //New input field html 
+	var messformulaFieldHTML = '<div><input required type="number" step="0.1" name="messformula_num[]" value="" class="form-control"/></div>'; //New input field html 
 	var selectHTML = '<div><select required name="rawMaterial_id[]" class="form-control"><option value="">Select Raw Material</Option><?php foreach($rawmaterial as $key => $value){ ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option> <?php } ?></select></div>';
 	
 	var x = 1; //Initial field counter is 1
@@ -20,7 +20,7 @@ $(document).ready(function(){
 			x++; //Increment field counter
 			$(wrapper).append(fieldHTML); // Add field html
 			$(formulaWrapper).append(formulaFieldHTML); // Add field html
-			$(messformulaWrapper).append(formulaFieldHTML); // Add field html
+			$(messformulaWrapper).append(messformulaFieldHTML); // Add field html
 			$(selectWrapper).append(selectHTML); // Add field html
 			
 		}
@@ -93,7 +93,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<div class="field_wrapper">
 								<div>
-									<input required type="number" step="0.5" name="field_name[]" value="" class="form-control"/>
+									<input required type="number" step="0.1" name="field_name[]" value="" class="form-control"/>
 								</div>
 							</div>
 							<!--<input type="text" name="formula" value="<?php //echo $this->input->post('formula'); ?>" class="form-control" id="formula" />	-->
@@ -104,7 +104,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<div class="formula_wrapper">
 								<div>
-									<input  type="number" step="0.5" name="formula_name[]" value="" class="form-control"/>
+									<input  type="number" step="0.1" name="formula_name[]" value="" class="form-control"/>
 									
 								</div>
 							</div>
@@ -116,7 +116,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<div class="messformula_wrapper">
 								<div>
-									<input  type="number" step="0.5" name="messformula_name[]" value="" class="form-control"/>
+									<input  type="number" step="0.1" name="messformula_num[]" value="" class="form-control"/>
 									
 								</div>
 							</div>
