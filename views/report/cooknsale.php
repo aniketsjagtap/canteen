@@ -168,14 +168,14 @@ $(document).ready(function(){
 															if($prm['id']==$pr['rawMaterial_id'])
 															{	
 																$close =  $c['quantity'];
-															//	echo $close;
+																echo $close;
 															}
 														}
 												
 											if($flag == ($count-1)){
 												echo "<td>";
 													$expected = $open+$purchase-$close;
-													echo $expected;
+													//echo $expected;
 												echo "</td>";
 											}
 											else{
