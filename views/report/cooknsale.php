@@ -104,11 +104,11 @@ $(document).ready(function(){
 					<tbody>
                     <?php $i=1;
 					
-					echo "<pre>";
-						print_r($closing);
-						// print_r($product_rawMaterial);
-						// echo count($product_rawMaterial[0]['product']);
-					echo "</pre>";
+					// echo "<pre>";
+						// print_r($closing);
+						// // print_r($product_rawMaterial);
+						// // echo count($product_rawMaterial[0]['product']);
+					// echo "</pre>";
 				 //return true;	
 				 if(! empty($product_rawMaterial)){
 					//return true;
@@ -168,6 +168,7 @@ $(document).ready(function(){
 											echo "<td>";
 												
 												 foreach($closing as $c){
+														//echo $prm['id']."- ".$pr['rawMaterial_id'];
 															if($prm['id']==$pr['rawMaterial_id'])
 															{	
 																$close =  $c['quantity'];
