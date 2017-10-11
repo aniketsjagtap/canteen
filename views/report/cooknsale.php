@@ -82,24 +82,24 @@ $(document).ready(function(){
 							
 							<th>Raw Material</th>
 							<th width="200">Product</th>
-							<!--<th>Rate</th>-->
+							<th>Rate</th>
 							
 							<th>Sale</th>
-							<th>Op. Stock</th>
+							<!--<th>Op. Stock</th>
 							<th>Purchase</th>
-							<th>Cl. Stock</th>
-							<th>Expected Purchase</th>
+							<th>Cl. Stock</th>-->
+							<th>Net Purchase</th>
 							
 							
 							<th>Regular</th>
 							<th>Party</th>
 							<th>Consume</th>
 							<th>Difference</th>
-							<th>Diff. Plates.</th>
+							<th>Diff. Plates</th>
 							
-							<!--<th>Difference</th>
+							<th>Diff. Amt.</th>
 							
-							<th>Amount</th>-->
+							<!--<th>Amount</th>-->
 					</thead>
 					<tbody>
                     <?php $i=1;
@@ -115,7 +115,7 @@ $(document).ready(function(){
 				 
 				 
 						foreach($product_rawMaterial as $prm){
-							$quantity = 0; $open=0; $close=0; $purchase=0; $consume = NULL; $partyConsume=NULL; $totalConsume=NULL; $difference=0; $total=0; $count = 0; $flag = 0; $expected = 0; $diff = 0;
+							$quantity = 0; $open=0; $close=0; $purchase=0; $consume = NULL; $partyConsume=NULL; $totalConsume=NULL; $difference=0; $total=0; $count = 0; $flag = 0; $expected = 0; $diff = 0; $plates = 0;
 							foreach($prm['product'] as $key=>$val){
 								$count = count($prm['product']);
 								foreach($product as $p){
@@ -134,48 +134,47 @@ $(document).ready(function(){
 											echo "<td>";
 												echo $p['name']; 
 											echo "</td>";
-											// echo "<td>";
-												// echo $p['price'];
-											// echo "</td>";
+											echo "<td>";
+												echo $p['price'];
+											echo "</td>";
 											 // echo "<td>";
 											 
 											 echo "<td>";
 												$quantity = $val['quantity'];
 												echo($quantity);
 											 echo "</td>";
-											 echo "<td>";
+											 // echo "<td>";
 											 
 												 foreach($opening as $o){
 															if($prm['id']==$o['rawMaterial_id'])
 															{
 																$open = $o['quantity'];
-																echo $open;
+																// echo $open;
 															}
 														} 
-											echo "</td>";
-											 echo "<td>";
+											// echo "</td>";
+											 // echo "<td>";
 							
 												foreach($purchase_report as $pr){
 															if($prm['id']==$pr['rawMaterial_id'])
 															{
 																$purchase = $pr['quantity'];
-																echo $purchase;
+																// echo $purchase;
 															}
 														}
 													
-												  echo "</td>";
+												  // echo "</td>";
 												
-											echo "<td>";
+											// echo "<td>";
 												
 												 foreach($closing as $c){
-														//echo $prm['id']."- ".$pr['rawMaterial_id'];
-															if($prm['id']==$pr['rawMaterial_id'])
+													if($prm['id']==$c['rawMaterial_id'])
 															{	
 																$close =  $c['quantity'];
-																echo $close;
+																//echo $close;
 															}
 														}
-											echo "</td>";
+											// echo "</td>";
 											if($flag == ($count-1)){
 												echo "<td>";
 													$expected = $open+$purchase-$close;
@@ -236,7 +235,16 @@ $(document).ready(function(){
 											}
 											echo "<td>";
 												if($diff > 0 ){
-													echo (round(($diff*$val['formula']),2));
+													$plates =  (round(($diff*$val['formula']),2));
+													echo $plates;
+												}
+												else {
+													echo '-';
+												}
+											echo "</td>";
+											echo "<td>";
+												if($diff > 0 ){
+													echo (round(($plates*$p['price']),2));
 												}
 												else {
 													echo '-';
