@@ -87,13 +87,13 @@ $(document).ready(function(){
 							<th>Sale</th>
 							<!--<th>Op. Stock</th>-->
 							<th>Purchase</th>
-							<!--<th>Cl. Stock</th>-->
+							<th>Cl. Stock</th>
 							
 							<th>Regular</th>
 							<th>Party</th>
 							<th>Consume</th>
 							<th>Difference</th>
-							<th>Diff. Amt.</th>
+							<th>Diff. Plates.</th>
 							
 							<!--<th>Difference</th>
 							
@@ -162,7 +162,7 @@ $(document).ready(function(){
 													
 												 // echo "</td>";
 												
-												// echo "<td>";
+											echo "<td>";
 												
 												 foreach($closing as $c){
 															if($prm['id']==$pr['rawMaterial_id'])
@@ -171,11 +171,11 @@ $(document).ready(function(){
 																echo $close;
 															}
 														}
-												
+											echo "<td>";
 											if($flag == ($count-1)){
 												echo "<td>";
 													$expected = $open+$purchase-$close;
-													//echo $expected;
+													echo $expected;
 												echo "</td>";
 											}
 											else{
