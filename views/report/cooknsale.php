@@ -107,7 +107,7 @@ $(document).ready(function(){
 						// print_r($product_rawMaterial);
 						// echo count($product_rawMaterial[0]['product']);
 					echo "</pre>";
-				 return true;	
+				 //return true;	
 				 if(! empty($product_rawMaterial)){
 					//return true;
 				 
