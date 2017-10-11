@@ -85,9 +85,10 @@ $(document).ready(function(){
 							<!--<th>Rate</th>-->
 							
 							<th>Sale</th>
-							<!--<th>Op. Stock</th>-->
-							<th>Purchase</th>
+							<th>Op. Stock</th>
 							<th>Cl. Stock</th>
+							<th>Purchase</th>
+							
 							
 							<th>Regular</th>
 							<th>Party</th>
@@ -141,6 +142,7 @@ $(document).ready(function(){
 												$quantity = $val['quantity'];
 												echo($quantity);
 											 echo "</td>";
+											 echo "<td>";
 											 
 												 foreach($opening as $o){
 															if($prm['id']==$o['rawMaterial_id'])
@@ -149,7 +151,7 @@ $(document).ready(function(){
 															//	echo $open;
 															}
 														} 
-											// echo "</td>";
+											echo "</td>";
 											// echo "<td>";
 							
 												foreach($purchase_report as $pr){
@@ -171,7 +173,7 @@ $(document).ready(function(){
 																echo $close;
 															}
 														}
-											echo "<td>";
+											echo "</td>";
 											if($flag == ($count-1)){
 												echo "<td>";
 													$expected = $open+$purchase-$close;
