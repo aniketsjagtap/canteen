@@ -105,8 +105,8 @@ $(document).ready(function(){
                     <?php $i=1;
 					
 					// echo "<pre>";
-						// print_r($closing);
-						// // print_r($product_rawMaterial);
+						// print_r($sales_report);
+						// print_r($product_rawMaterial);
 						// // echo count($product_rawMaterial[0]['product']);
 					// echo "</pre>";
 				 //return true;	
@@ -140,7 +140,15 @@ $(document).ready(function(){
 											 // echo "<td>";
 											 
 											 echo "<td>";
-												$quantity = $val['quantity'];
+											 foreach($sales_report as $sr){
+													//echo $p['id']."<br>";
+															if($p['id']==$sr['product_id'])
+															{
+																$quantity = $sr['quantity'];
+																
+															}
+														}
+												
 												echo($quantity);
 											 echo "</td>";
 											 // echo "<td>";
