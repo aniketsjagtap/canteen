@@ -195,7 +195,7 @@ $(document).ready(function(){
 											// echo "</td>";
 
 											if( $val['salesType_id'] == 1)	{
-												$consume=  round(($val['quantity']/$val['formula']),2);
+												$consume=  round(($quantity/$val['formula']),2);
 											}
 											else{
 												
@@ -207,7 +207,7 @@ $(document).ready(function(){
 											echo "</td>";
 											
 											if( $val['salesType_id'] == 2)	{
-												$partyConsume = round(($val['quantity']/$val['partyFormula']),2);
+												$partyConsume = round(($quantity/$val['partyFormula']),2);
 											}		
 											else{
 												$partyConsume = 0;
