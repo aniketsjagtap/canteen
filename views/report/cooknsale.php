@@ -91,6 +91,7 @@ $(document).ready(function(){
 							<th>Net Purchase</th>
 							
 							
+							<th>Reg. Formula</th>
 							<th>Regular</th>
 							<th>Party</th>
 							<th>Consume</th>
@@ -201,6 +202,10 @@ $(document).ready(function(){
 												
 												$consume = 0;
 											}
+											echo "<td>";
+												echo $val['formula'];
+												//echo $consume;
+											echo "</td>";
 											echo "<td>";
 												// echo $val['formula'];
 												echo $consume;
