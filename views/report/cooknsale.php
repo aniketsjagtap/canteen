@@ -93,6 +93,7 @@ $(document).ready(function(){
 							
 							<th>Reg. Formula</th>
 							<th>Regular</th>
+							<th>Party Formula</th>
 							<th>Party</th>
 							<th>Consume</th>
 							<th>Difference</th>
@@ -217,6 +218,10 @@ $(document).ready(function(){
 											else{
 												$partyConsume = 0;
 											}
+											echo "<td>";
+												echo $val['partyFormula'];
+												
+											echo "</td>";
 											echo "<td>";
 												echo $partyConsume;
 												
