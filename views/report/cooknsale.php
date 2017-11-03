@@ -93,8 +93,8 @@ $(document).ready(function(){
 							
 							<th>Reg. Formula</th>
 							<th>Regular</th>
-							<th>Party Formula</th>
-							<th>Party</th>
+							<th>Credit Formula</th>
+							<th>Credit</th>
 							<th>Consume</th>
 							<th>Difference</th>
 							<th>Diff. Plates</th>
