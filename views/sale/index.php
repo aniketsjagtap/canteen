@@ -31,6 +31,7 @@
 		})
 		  .columnFilter({ sPlaceHolder: "head:after",
 			aoColumns: [ null,	
+			
 					{ type: "text" },
 					{ type: "text" },
 					
@@ -42,13 +43,44 @@
 					null,
 					null,
 					null,
-					{ type:"text"},
+					null,
+					// {
+            // sClass: 'dateField' 
+        // },
+					//{ type:"text"},
 					null
 				]
 		});
 		
 		$('#data_tbl1_length').addClass("no-print");
 		$('#data_tbl1_filter').addClass("no-print");
+		
+		   
+      
+            $("#min").datepicker(
+				{  
+					// changeMonth: true, 
+					// changeYear: true , 
+					 autoclose: true,
+					// dateFormat:"d/m/Y",
+					dateFormat: "yy-mm-dd" ,
+					
+
+				}
+			);
+           
+			
+			var table = $('#data_tbl1').DataTable();
+ 
+			// #column3_search is a <input type="text"> element
+			$('#min').on( 'change', function () {
+				//alert(this.value);
+				table
+					.columns( 10 )
+					.search( this.value )
+					.draw();
+			} );
+       
 });
 </script>
 <div class="row">
@@ -96,7 +128,7 @@
 							<th></th>
 							<th id="totalPrice"></th>
 							<th></th>
-							<th></th>
+							<th><input name="min" id="min" type="text"></th>
 							<th></th>
 						</tr>
 					</thead>
@@ -132,7 +164,7 @@
 								if($s['product_id']== $p['id'])
 									echo ($p['price']*$s['quantity']);}  ?></td>
 						<td><?php echo $s['remark']; ?></td>
-						<td><?php $registered = date( 'd/m/Y', $s['date'] );
+						<td><?php $registered = date( 'm/d/Y', $s['date'] );
 								echo $registered; ?></td>
 						<td>
                             <a href="<?php echo site_url('sale/edit/'.$s['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 

@@ -41,6 +41,7 @@
    <link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/css/dataTables.jqueryui.css');?>" rel="stylesheet" media="screen">
    <link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/css/jquery-ui.css');?>" rel="stylesheet" media="screen">
    <link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/buttons.dataTables.min.css');?>" rel="stylesheet" media="screen">
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -591,7 +592,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.3.0
+      <b>Version</b> 1.3.2
     </div>
    <small> Designed & Developed by: </small> <strong><a href="http://jagtechno.com" target="_blank">JagTechno</a></strong> 
   </footer>
