@@ -91,9 +91,9 @@ $(document).ready(function(){
 							<th>Net Purchase</th>
 							
 							
-							<th>Reg. Formula</th>
+							<!--<th>Reg. Formula</th>-->
 							<th>Regular</th>
-							<th>Credit Formula</th>
+							<!--<th>Credit Formula</th>-->
 							<th>Credit</th>
 							<th>Consume</th>
 							<th>Difference</th>
@@ -203,10 +203,10 @@ $(document).ready(function(){
 												
 												$consume = 0;
 											}
-											echo "<td>";
-												echo $val['formula'];
-												//echo $consume;
-											echo "</td>";
+											// echo "<td>";
+												// echo $val['formula'];
+												// //echo $consume;
+											// echo "</td>";
 											echo "<td>";
 												// echo $val['formula'];
 												echo $consume;
@@ -218,10 +218,10 @@ $(document).ready(function(){
 											else{
 												$partyConsume = 0;
 											}
-											echo "<td>";
-												echo $val['partyFormula'];
+											// echo "<td>";
+												// echo $val['partyFormula'];
 												
-											echo "</td>";
+											// echo "</td>";
 											echo "<td>";
 												echo $partyConsume;
 												
