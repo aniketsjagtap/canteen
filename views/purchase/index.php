@@ -40,14 +40,42 @@
 					null,
 					null,
 					
-					//null,
-					{ type: "date-range", sRangeFormat: "Start:{from} End:{to}"},
+					null,
+					//{ type: "date-range", sRangeFormat: "Start:{from} End:{to}"},
 					null
 				]
 		});
 		
 		$('#data_tbl_length').addClass("no-print");
 		$('#data_tbl_filter').addClass("no-print");
+		
+		var tab = $('#data_tbl').DataTable();
+		
+		 
+		 $("#min").datepicker({ onSelect: function () { tab.fnDraw();alert("hi"); },  autoclose: true});
+		 $("#max").datepicker({ onSelect: function () { tab.fnDraw(); alert("hello");},  autoclose: true });
+		 $('#min, #max').change(function () {
+                tab.fnDraw();
+				
+            });
+			
+			$.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+		
+            var min = $('#min').datepicker("getDate");
+			
+            var max = $('#max').datepicker("getDate");
+			
+            var startDate = new Date(data[8]);
+			
+            if (min == null && max == null) { return true; }
+            if (min == null && startDate <= max) { return true;}
+            if(max == null && startDate >= min) {return true;}
+            if (startDate <= max && startDate >= min) {return true; }
+			
+            return false;
+        }
+        );
 }
 );
 </script>
@@ -87,7 +115,7 @@
 							<th></th>
 							<th></th>
 							<th id="totalPrice"></th>
-							<th ></th>
+							<th ><input name="min" id="min" type="text"/><input name="max" id="max" type="text"/></th>
 							<th></th>
 						</tr>
 						

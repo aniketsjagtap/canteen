@@ -63,7 +63,7 @@
 					// changeYear: true , 
 					 autoclose: true,
 					// dateFormat:"d/m/Y",
-					dateFormat: "yy-mm-dd" ,
+					//format: "yy-mm-dd" ,
 					
 
 				}
