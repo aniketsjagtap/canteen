@@ -120,6 +120,7 @@ function index()
 						);
 					$this->data['rawMaterialRate'][$i] = $this->Stock_model->get_rate_rawMaterial($params);
 					$params = null;
+					//return true;
 					// echo "<pre>";
 						// echo "Raw Material Id : ".$this->data['stock'][$i]['rawMaterial_id'].":";
 						// print_r($this->data['rawMaterialRate'][$i]);

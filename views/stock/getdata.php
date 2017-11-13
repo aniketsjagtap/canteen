@@ -62,7 +62,7 @@ $(document).ready(function(){
 					-->	
 				
 				<button type="submit" class="btn btn-success">
-            		<i class="fa fa-check"></i> Get Report
+            		<i class="fa fa-check"></i> Get Stock
             	</button>
 				<button type="reset" class="btn btn-danger pull-right" onclick="location.reload(); ">
 						<i class="fa fa-refresh"></i> Reset

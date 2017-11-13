@@ -48,9 +48,22 @@ class Stock_model extends CI_Model
 		// $this->db->order_by('date', 'desc');
 		// return $this->db->get_where('purchase',array('rawMaterial_id'=>$rawMaterial_id))->row_array();
 		
+		$tmp = null;
 		$this->db->where('(date >= "'. $params['opening_date'] . '" and date <= "'. $params['closing_date'] .'" )and rawMaterial_id='. $params['rawMaterial_id']);
 		$this->db->order_by('date', 'desc');
-		return $this->db->get('purchase')->row_array();
+		
+		$tmp = $this->db->get('purchase')->row_array();
+		
+		if($tmp['price'])
+		{
+			return $tmp;
+		}
+		else{
+			
+			$this->db->order_by('date', 'desc');
+			 return $this->db->get_where('purchase',array('rawMaterial_id'=>$params['rawMaterial_id']))->row_array();
+		}
+	
 	 }
 	 
     /*
