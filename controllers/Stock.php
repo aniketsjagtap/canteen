@@ -14,11 +14,7 @@ class Stock extends CI_Controller{
         $this->load->model('Location_model');
 		 $this->load->model('Order_model');
     } 
-
-    /*
-     * Listing of stock
-     */
-    function index()
+function index()
     {
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
@@ -37,31 +33,113 @@ class Stock extends CI_Controller{
 			
 			$this->data['pp'] = $specialPerm;
 			$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-			if($this->User_model->hasPermission('WILD_CARD',$id)){
-				$this->data['stock'] = $this->Stock_model->get_all_stock();
-			}
-			else{
-				$this->data['stock'] = $this->Stock_model->get_location_stock($user['location_id']);
-			}
-			$this->data['location'] = $this->Location_model->get_all_location();
-			$this->data['rawMaterial'] = $this->Rawmaterial_model->get_all_rawMaterial();
-			$this->data['unit'] = $this->Unit_model->get_all_units();
-			for($i=0;$i<sizeof($this->data['stock']);$i++)
-			{
-				$this->data['rawMaterialRate'][$i] = $this->Stock_model->get_rate_rawMaterial($this->data['stock'][$i]['rawMaterial_id']);
-				// echo "<pre>";
-					// echo "Raw Material Id : ".$this->data['stock'][$i]['rawMaterial_id'].":";
-					// print_r($this->data['rawMaterialRate'][$i]);
-				// echo "</pre>";
-				// if( $this->data['rawMaterialRate'][$i]['price']){
-					// $this->data['$rate'] = number_format(($this->data['rawMaterialRate']['price'])/($this->data['rawMaterialRate']['quantity']),2);
-					// echo $s['rawMaterial_id']." : ".$s['quantity']." * ".$rate." = ".number_format(($s['quantity']*$rate),2)."<br><br>";
-				// }
-			}
-				
+							
 			$this->template
 				->title('Welcome','My Aapp')
-				->build('stock/index',$this->data);
+				->build('stock/getdata',$this->data);
+		}
+		else{
+			$this->template
+					->title('Login Admin','Login Page')
+					->set_layout('access')
+					->build('access/login');
+		}
+	}
+    /*
+     * Listing of stock
+     */
+    function getData()
+    {
+		if ($this->auth->loggedin()) {
+			$id = $this->auth->userid();
+			if(!($this->User_model->hasPermission('read',$id)&&($this->User_model->hasPermission('stock',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+				show_error('You Don\'t have permission to perform this operation.');
+				return false;
+			}
+			$user = $this->User_model->get('person_id', $id);
+			unset($user['password']);
+			$user_role = $this->User_model->loadRoles($user['person_id']);
+			
+			$this->data['user'] = $user['username'];
+			$this->data['urole'] = $user_role;
+			$specialPerm =  $this->User_model->loadSpecialPermission($id);
+					
+			
+			$this->data['pp'] = $specialPerm;
+			$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
+			
+			
+			$this->form_validation->set_rules('dtp_input1', '<b>Opening Stock Date</b>', 'trim|required');
+			$this->form_validation->set_rules('dtp_input2', '<b>Closing Stock Date</b>', 'trim|required');
+			
+			if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
+			{     
+				list($part1,$part2) = explode(' ', date("Y-m-d H:i:s",strtotime($this->input->post('dtp_input1'))));
+				list($year, $month, $day) = explode('-', $part1);
+				list($hours, $minutes,$seconds) = explode(':', $part2);
+				$opening =  mktime($hours, $minutes, $seconds, $month, $day, $year); 
+				
+				list($part3,$part4) = explode(' ', date("Y-m-d H:i:s",strtotime($this->input->post('dtp_input2'))));
+				list($year, $month, $day) = explode('-', $part3);
+				list($hours, $minutes,$seconds) = explode(':', $part4);
+				$closing =  mktime($hours, $minutes, $seconds, $month, $day, $year);
+				
+				if($this->User_model->hasPermission('WILD_CARD',$id)){
+				
+					$params = array(
+						'opening_date' => $opening,
+						'closing_date' => $closing,
+						);
+					$this->data['stock'] = $this->Stock_model->get_all_stock($params);
+					 // print_r($params);
+				// echo "<pre>";
+			
+				// print_r($this->data['stock']);
+					// echo "</pre>";
+				// return true;
+				}
+				else{
+					$params = array(
+						'location_id' => $user['location_id'],
+						'opening_date' => $opening,
+						'closing_date' => $closing,
+						);
+					$this->data['stock'] = $this->Stock_model->get_location_stock($params);
+				}
+				$this->data['open_date'] = $opening;
+				$this->data['close_date'] = $closing;
+				$this->data['location'] = $this->Location_model->get_all_location();
+				$this->data['rawMaterial'] = $this->Rawmaterial_model->get_all_rawMaterial();
+				$this->data['unit'] = $this->Unit_model->get_all_units();
+				for($i=0;$i<sizeof($this->data['stock']);$i++)
+				{
+					$params = array(
+						'rawMaterial_id' => $this->data['stock'][$i]['rawMaterial_id'],
+						'opening_date' => $opening,
+						'closing_date' => $closing,
+						);
+					$this->data['rawMaterialRate'][$i] = $this->Stock_model->get_rate_rawMaterial($params);
+					$params = null;
+					// echo "<pre>";
+						// echo "Raw Material Id : ".$this->data['stock'][$i]['rawMaterial_id'].":";
+						// print_r($this->data['rawMaterialRate'][$i]);
+					// echo "</pre>";
+					// return true;
+					// if( $this->data['rawMaterialRate'][$i]['price']){
+						// $this->data['$rate'] = number_format(($this->data['rawMaterialRate']['price'])/($this->data['rawMaterialRate']['quantity']),2);
+						// echo $s['rawMaterial_id']." : ".$s['quantity']." * ".$rate." = ".number_format(($s['quantity']*$rate),2)."<br><br>";
+					// }
+				}
+					
+				$this->template
+					->title('Welcome','My Aapp')
+					->build('stock/index',$this->data);
+			}else
+			{
+				$this->template
+				->title('Welcome','My Aapp')
+				->build('stock/getdata',$this->data);
+			}
 		}
 		else{
 			$this->template

@@ -128,6 +128,11 @@ class Report extends CI_Controller{
 				);
 				// print_r($params);
 				$this->data['sales_report'] = $this->Report_model->get_sales_report($params);
+				// echo "<pre>";
+			
+				// print_r($this->data['sales_report']);
+					// echo "</pre>";
+				// return true;
 				$this->data['purchase_report'] = $this->Report_model->get_purchase_report($params);
 				
 				$close = strtotime('+1 day', $opening);

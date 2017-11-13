@@ -22,27 +22,35 @@ class Stock_model extends CI_Model
     /*
      * Get all stock
      */
-    function get_all_stock()
+    function get_all_stock($params)
     {
-        $this->db->order_by('location_id', 'desc');
-        return $this->db->get('stock')->result_array();
+        // $this->db->order_by('location_id', 'desc');
+        // return $this->db->get('stock')->result_array();
+		$this->db->where('(date >= "'. $params['opening_date'] . '" and date <= "'. $params['closing_date'] .'" )');
+		return $this->db->get('stock')->result_array();
     }
 	/*
      * Get stock by location
      */
-    function get_location_stock($location_id)
+    function get_location_stock($params)
     {
-        $this->db->order_by('date', 'desc');
-        return $this->db->get_where('stock',array('location_id'=>$location_id))->result_array();
+        // $this->db->order_by('date', 'desc');
+        // return $this->db->get_where('stock',array('location_id'=>$location_id))->result_array();
+		$this->db->where('(date >= "'. $params['opening_date'] . '" and date <= "'. $params['closing_date'] .'" )and location_id='. $params['location_id']);
+		return $this->db->get('stock')->result_array();
     }
 	/*
 	 * Get latest rate per rawMaterial 
 	 */
-	 function get_rate_rawMaterial($rawMaterial_id)
+	 function get_rate_rawMaterial($params)
 	 {
 		// $this->db->select_max('date');
+		// $this->db->order_by('date', 'desc');
+		// return $this->db->get_where('purchase',array('rawMaterial_id'=>$rawMaterial_id))->row_array();
+		
+		$this->db->where('(date >= "'. $params['opening_date'] . '" and date <= "'. $params['closing_date'] .'" )and rawMaterial_id='. $params['rawMaterial_id']);
 		$this->db->order_by('date', 'desc');
-		return $this->db->get_where('purchase',array('rawMaterial_id'=>$rawMaterial_id))->row_array();
+		return $this->db->get('purchase')->row_array();
 	 }
 	 
     /*

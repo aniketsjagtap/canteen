@@ -37,13 +37,36 @@
 					 null,
 					null,
 					null,
-					{ type: "date-range", sRangeFormat: "Start:{from} End:{to}"},
+					null,
+					//{ type: "date-range", sRangeFormat: "Start:{from} End:{to}"},
 					null
 				]
 		});
 		
 		$('#stock_tbl_length').addClass("no-print");
 		$('#stock_tbl_filter').addClass("no-print");
+		
+		  $("#min").datepicker(
+				{  
+					// changeMonth: true, 
+					// changeYear: true , 
+					 autoclose: true,
+					// dateFormat:"d/m/Y",
+					//format: "yy-mm-dd" ,
+					
+
+				}
+			);
+		var table = $('#stock_tbl').DataTable();
+ 
+			// #column3_search is a <input type="text"> element
+			$('#min').on( 'change', function () {
+				//alert(this.value);
+				table
+					.columns( 7 )
+					.search( this.value )
+					.draw();
+			} );
 });
 </script>
 
@@ -52,6 +75,8 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">Stock Listing</h3>
+				<h5><?php echo "<b>Period: </b>".date( 'd-M-Y', $open_date )." <b>to</b> ".date( 'd-M-Y', $close_date ); 
+				?></h5>
             	<div class="box-tools">
                     <a href="<?php echo site_url('stock/add'); ?>" class="btn btn-success btn-sm">Add</a> 
                 </div>
@@ -79,7 +104,7 @@
 							<th></th>
 							<th></th>
 							<th id="totalPrice"></th>
-							<th></th>
+							<th><input name="min" id="min" type="text"></th>
 							<th></th>
 						</tr>
 					</thead>
