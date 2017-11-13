@@ -52,8 +52,8 @@
 		var tab = $('#data_tbl').DataTable();
 		
 		 
-		 $("#min").datepicker({ onSelect: function () { tab.fnDraw();alert("hi"); },  autoclose: true});
-		 $("#max").datepicker({ onSelect: function () { tab.fnDraw(); alert("hello");},  autoclose: true });
+		 $("#min").datepicker({ onSelect: function () { tab.fnDraw(); },  autoclose: true});
+		 $("#max").datepicker({ onSelect: function () { tab.fnDraw(); },  autoclose: true });
 		 $('#min, #max').change(function () {
                 tab.fnDraw();
 				
@@ -66,7 +66,7 @@
 			
             var max = $('#max').datepicker("getDate");
 			
-            var startDate = new Date(data[8]);
+            var startDate = new Date(data[9]);
 			
             if (min == null && max == null) { return true; }
             if (min == null && startDate <= max) { return true;}
@@ -103,6 +103,7 @@
 							<th>Quantity</th>
 							<th>Unit</th>
 							<th>Amount</th>
+							<th>Rate</th>
 							<th style="width:300px">Date</th>
 							<th>Actions</th>
 						</tr>
@@ -115,6 +116,7 @@
 							<th></th>
 							<th></th>
 							<th id="totalPrice"></th>
+							<th></th>
 							<th ><input name="min" id="min" type="text"/><input name="max" id="max" type="text"/></th>
 							<th></th>
 						</tr>
@@ -149,6 +151,7 @@
 						</td>
 						
 						<td><?php echo $p['price']; ?></td>
+						<td><?php echo round(($p['price']/$p['quantity']),2); ?></td>
 						
 						<td><?php $registered = date( 'm/d/Y', $p['date']); echo $registered; ?></td>
 						<td>

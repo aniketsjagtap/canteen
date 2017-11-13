@@ -108,7 +108,11 @@
 							<th></th>
 						</tr>
 					</thead>
-                    <?php $i=1; foreach($stock as $s){ ?>
+                    <?php
+						// echo "<pre>";
+							// print_r($rawMaterialRate);
+							// echo "</pre>";
+					$i=1; foreach($stock as $s){ ?>
                     <tr>
 						<td><?=$i;?></td>
 						<td><?php foreach($location as $l){

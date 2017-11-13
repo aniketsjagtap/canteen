@@ -54,14 +54,15 @@ class Stock_model extends CI_Model
 		
 		$tmp = $this->db->get('purchase')->row_array();
 		
-		if($tmp['price'])
+		if($tmp['price'] == 0)
 		{
-			return $tmp;
+			$this->db->order_by('date', 'asc');
+			return $this->db->get_where('purchase',array('rawMaterial_id'=>$params['rawMaterial_id']))->row_array();
+			
 		}
 		else{
-			
-			$this->db->order_by('date', 'desc');
-			 return $this->db->get_where('purchase',array('rawMaterial_id'=>$params['rawMaterial_id']))->row_array();
+			//echo $tmp['id']." NZ: ".$tmp['price']." <br>";
+			return $tmp;
 		}
 	
 	 }
