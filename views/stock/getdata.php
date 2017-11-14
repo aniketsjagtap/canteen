@@ -20,6 +20,9 @@ $(document).ready(function(){
       	<div class="box box-info">
             <div class="box-header with-border">
               	<h3 class="box-title">Stock Listing</h3>
+				<div class="box-tools">
+                    <a href="<?php echo site_url('stock/add'); ?>" class="btn btn-success btn-sm">Add</a> 
+                </div>
             </div>
 			 
             <?php echo form_open('stock/getData'); ?>
