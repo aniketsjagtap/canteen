@@ -93,7 +93,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<div class="field_wrapper">
 								<div>
-									<input required type="number" step="0.1" name="field_name[]" value="" class="form-control"/>
+									<input required type="number" step="0.001" name="field_name[]" value="" class="form-control"/>
 								</div>
 							</div>
 							<!--<input type="text" name="formula" value="<?php //echo $this->input->post('formula'); ?>" class="form-control" id="formula" />	-->
@@ -104,7 +104,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<div class="formula_wrapper">
 								<div>
-									<input  type="number" step="0.1" name="formula_name[]" value="" class="form-control"/>
+									<input  type="number" step="0.001" name="formula_name[]" value="" class="form-control"/>
 									
 								</div>
 							</div>
@@ -116,7 +116,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<div class="messformula_wrapper">
 								<div>
-									<input  type="number" step="0.1" name="messformula_num[]" value="" class="form-control"/>
+									<input  type="number" step="0.00001" name="messformula_num[]" value="" class="form-control"/>
 									
 								</div>
 							</div>

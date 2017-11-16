@@ -240,7 +240,8 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 </style>
 </head>
 <!--fixed left side bar-->
- <body class="hold-transition skin-blue fixed sidebar-mini">
+ <body class="skin-blue fixed sidebar-collapse sidebar-mini">
+ <!--<body class="hold-transition skin-blue fixed sidebar-mini">-->
  <!--<body class="hold-transition skin-blue sidebar-mini">-->
 <div class="wrapper">
   <header class="main-header">
@@ -340,7 +341,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
-		<li class="active treeview">
+		<li class="treeview">
           <a href="<?php echo site_url('User/redi');?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
@@ -428,13 +429,51 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 		<?php if($p_role['role_id']==1||$p_role['role_id']==2||$p_role['role_id']==7){?>
 			<li class="treeview">
 			  <a href="#">
-				<i class="fa fa-inr"></i>
+				<i class="fa fa-line-chart"></i>
 				<span>Reports</span>
 				<i class="fa fa-angle-left pull-right"></i>
 			  </a>
 			  <ul class="treeview-menu">
 			
 				<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Inventory</a></li>
+			  </ul>
+			</li>
+		<?php }?>
+		<?php if($p_role['role_id']==1||$p_role['role_id']==2||$p_role['role_id']==7){?>
+			<li class="treeview">
+			  <a href="#">
+				<i class="fa fa-inr"></i>
+				<span>Accounts</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			  </a>
+			  <ul class="treeview-menu">
+				<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Sales</a></li>
+			  
+				<li>
+					<a href="#">
+						<i class="fa fa-caret-right"></i>
+						<span>Expenses</span>
+						<i class="fa fa-angle-left pull-right"></i>
+					</a>
+					<ul class="treeview-menu">
+						<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Direct</a></li>
+						<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Indirect</a></li>
+					</ul>
+				</li>
+			 
+				<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Report</a></li>
+			 
+				<li>
+					<a href="#">
+						<i class="fa fa-caret-right"></i>
+						<span>Master</span>
+						<i class="fa fa-angle-left pull-right"></i>
+					</a>
+					<ul class="treeview-menu">
+						<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Sales Type</a></li>
+						<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Expenses Types</a></li>
+					</ul>
+				</li>
 			  </ul>
 			</li>
 		<?php }?>
@@ -592,7 +631,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.3.6
+      <b>Version</b> 1.3.7
     </div>
    <small> Designed & Developed by: </small> <strong><a href="http://jagtechno.com" target="_blank">JagTechno</a></strong> 
   </footer>
