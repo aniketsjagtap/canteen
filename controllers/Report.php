@@ -142,6 +142,19 @@ class Report extends CI_Controller{
 					'closing_date' => $close,
 				);
 				$this->data['opening'] = $this->Report_model->get_stock_report($opening_params);
+				$array = $this->data['opening'];
+					$result = array();
+					foreach ($array as $val) {
+							//print_r( $val );
+						if (!isset($result[$val['rawMaterial_id']]))
+							$result[$val['rawMaterial_id']] = $val;
+						else
+							$result[$val['rawMaterial_id']]['quantity'] += $val['quantity'];
+							
+					}
+					$this->data['opening'] = array_values($result);
+				
+				
 				
 				$open = strtotime('+1 day', $closing);
 				$closing_params = array(
@@ -151,6 +164,22 @@ class Report extends CI_Controller{
 				);
 				
 				$this->data['closing'] = $this->Report_model->get_stock_report($closing_params);
+				
+				$array = $this->data['closing'];
+					$result = array();
+					foreach ($array as $val) {
+							//print_r( $val );
+						if (!isset($result[$val['rawMaterial_id']]))
+							$result[$val['rawMaterial_id']] = $val;
+						else
+							$result[$val['rawMaterial_id']]['quantity'] += $val['quantity'];
+							
+					}
+					$this->data['closing'] = array_values($result);
+					
+					
+				
+				
 				$this->data['loc_id'] = $this->input->post('location_id');
 				$this->data['open_date'] = $opening;
 				$this->data['close_date'] = $closing;
@@ -176,9 +205,9 @@ class Report extends CI_Controller{
 					$this->data['purchase_report'] = array_values($result);
 				//redirect('report/index');
 				// echo "<pre>";
-				// print_r($this->data['sales_report']);
+				// print_r($this->data['closing']);
 				// echo "</pre>";
-				
+				// return true;
 				if($this->data['cat_id']== 2){ //get MRP item report MRP_Item_category = 2
 						for($i=0;$i<sizeof($this->data['sales_report']);$i++)
 				{
