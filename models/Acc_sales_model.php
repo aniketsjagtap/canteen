@@ -4,7 +4,7 @@
  * www.crudigniter.com
  */
  
-class Acc_acc_sales_model extends CI_Model
+class Acc_sales_model extends CI_Model
 {
     function __construct()
     {

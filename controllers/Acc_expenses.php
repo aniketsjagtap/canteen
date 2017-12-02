@@ -8,7 +8,7 @@ class Acc_expenses extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Purchase_model');
+        $this->load->model('Acc_expenses_model');
         $this->load->model('Location_model');
         $this->load->model('Order_model');
         $this->load->model('Supplier_model');
@@ -17,7 +17,7 @@ class Acc_expenses extends CI_Controller{
     } 
 
     /*
-     * Listing of purchase
+     * Listing of acc_expenses
      */
     function index()
     {
@@ -38,10 +38,10 @@ class Acc_expenses extends CI_Controller{
 			$this->data['pp'] = $specialPerm;
 			$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
 			if($this->User_model->hasPermission('WILD_CARD',$id)){
-				$this->data['purchase'] = $this->Purchase_model->get_all_purchase();
+				$this->data['purchase'] = $this->Acc_expenses_model->get_all_acc_expenses();
 			}
 			else{
-				$this->data['purchase'] = $this->Purchase_model->get_location_purchase($user['location_id']);
+				$this->data['purchase'] = $this->Acc_expenses_model->get_location_acc_expenses($user['location_id']);
 			}
 			
 			$this->data['supplier'] = $this->Supplier_model->get_all_status_supplier();
@@ -62,7 +62,7 @@ class Acc_expenses extends CI_Controller{
     }
 
     /*
-     * Adding a new purchase
+     * Adding a new acc_expenses
      */
     function add()
     {   
@@ -97,7 +97,7 @@ class Acc_expenses extends CI_Controller{
 					'date' => $timeto,
 				);
 				//var_dump($params);
-				$purchase_id = $this->Purchase_model->add_purchase($params);
+				$purchase_id = $this->Acc_expenses_model->add_acc_expenses($params);
 				redirect('acc_expenses/index');
 			}
 			else
@@ -111,7 +111,7 @@ class Acc_expenses extends CI_Controller{
 				
 				$this->data['pp'] = $specialPerm;
 				$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-				$this->data['purchase'] = $this->Purchase_model->get_all_purchase();
+				$this->data['purchase'] = $this->Acc_expenses_model->get_all_acc_expenses();
 				$this->data['rawmaterial'] = $this->Rawmaterial_model->get_all_rawmaterial();
 				$this->data['order'] = $this->Order_model->get_all_order();
 				$this->data['location'] = $this->Location_model->get_all_location();
@@ -133,7 +133,7 @@ class Acc_expenses extends CI_Controller{
     }  
 
     /*
-     * Editing a purchase
+     * Editing a acc_expenses
      */
     function edit($purchase_id)
     {   
@@ -144,7 +144,7 @@ class Acc_expenses extends CI_Controller{
 				return false;
 			}
 			// check if the purchase exists before trying to edit it
-			$this->data['purchase'] = $this->Purchase_model->get_purchase($purchase_id);
+			$this->data['purchase'] = $this->Acc_expenses_model->get_acc_expenses($purchase_id);
 			
 			if(isset($this->data['purchase']['id']))
 			{
@@ -169,7 +169,7 @@ class Acc_expenses extends CI_Controller{
 					);
 
 					//var_dump($params);
-					$this->Purchase_model->update_purchase($purchase_id,$params);            
+					$this->Acc_expenses_model->update_acc_expenses($purchase_id,$params);            
 					redirect('acc_expenses/index');
 				}
 				else
@@ -195,7 +195,7 @@ class Acc_expenses extends CI_Controller{
 				}
 			}
 			else
-				show_error('The purchase you are trying to edit does not exist.');
+				show_error('The acc_expenses you are trying to edit does not exist.');
 		}else{
 			$this->template
 				->title('Login Admin','Login Page')
@@ -215,12 +215,12 @@ class Acc_expenses extends CI_Controller{
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
-			$purchase = $this->Purchase_model->get_purchase($purchase_id);
+			$purchase = $this->Acc_expenses_model->get_acc_expenses($purchase_id);
 
 			// check if the purchase exists before trying to delete it
 			if(isset($purchase['id']))
 			{
-				$this->Purchase_model->delete_purchase($purchase_id);
+				$this->Acc_expenses_model->delete_acc_expenses($purchase_id);
 				redirect('acc_expenses/index');
 			}
 			else

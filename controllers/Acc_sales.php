@@ -8,8 +8,8 @@ class acc_sales extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Sale_model');
-        $this->load->model('SaleType_model');
+        $this->load->model('Acc_sales_model');
+        $this->load->model('Acc_salesType_model');
         $this->load->model('Rawmaterial_model');
         $this->load->model('Product_rawmaterial_model');
         $this->load->model('Product_model');
@@ -41,13 +41,13 @@ class acc_sales extends CI_Controller{
 			$this->data['pp'] = $specialPerm;
 			$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
 			if($this->User_model->hasPermission('WILD_CARD',$id)){
-				$this->data['sales'] = $this->Sale_model->get_all_sales();
+				$this->data['sales'] = $this->Acc_sales_model->get_all_acc_sales();
 			}
 			else{
-				$this->data['sales'] = $this->Sale_model->get_location_sales($user['location_id']);
+				$this->data['sales'] = $this->Acc_sales_model->get_location_acc_sales($user['location_id']);
 			}
 			
-			$this->data['saleType'] = $this->SaleType_model->get_all_saleType();
+			$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
 			$this->data['Type'] = $this->Type_model->get_all_Type();
 			
 			$this->data['location'] = $this->Location_model->get_all_location();
@@ -118,7 +118,7 @@ class acc_sales extends CI_Controller{
 				// $release_date=$_POST['dtp_input2'];
 				//echo date("Y-m-d H:i:s",strtotime($release_date));
 				// print_r($params);
-				$sale_id = $this->Sale_model->add_sale($params);
+				$sale_id = $this->Acc_sales_model->add_sale($params);
 				redirect('acc_sales/index');
 			}else{
 				
@@ -131,8 +131,8 @@ class acc_sales extends CI_Controller{
 				
 				$this->data['pp'] = $specialPerm;
 				$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-				$this->data['sales'] = $this->Sale_model->get_all_sales();
-				$this->data['saleType'] = $this->SaleType_model->get_all_saleType();
+				$this->data['sales'] = $this->Acc_sales_model->get_all_acc_sales();
+				$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
 
 				
 				
@@ -167,7 +167,7 @@ class acc_sales extends CI_Controller{
 				return false;
 			}
 			// check if the sale exists before trying to edit it
-			$this->data['sale'] = $this->Sale_model->get_sale($sales_id);
+			$this->data['sale'] = $this->Acc_sales_model->get_sale($sales_id);
 			
 			if(isset($this->data['sale']['id']))
 			{
@@ -189,7 +189,7 @@ class acc_sales extends CI_Controller{
 						'remark' => $this->input->post('remark'),
 					);
 
-					$this->Sale_model->update_sale($sales_id,$params);            
+					$this->Acc_sales_model->update_sale($sales_id,$params);            
 					redirect('acc_sales/index');
 				}
 				else
@@ -207,7 +207,7 @@ class acc_sales extends CI_Controller{
 					$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
 					$this->data['product'] = $this->Product_model->get_all_product();
 					$this->data['unit'] = $this->Unit_model->get_all_units();
-					$this->data['saleType'] = $this->SaleType_model->get_all_saleType();
+					$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
 					
 					
 					$this->template
@@ -238,12 +238,12 @@ class acc_sales extends CI_Controller{
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
-			$sale = $this->Sale_model->get_sale($sales_id);
+			$sale = $this->Acc_sales_model->get_sale($sales_id);
 
 			// check if the sale exists before trying to delete it
 			if(isset($sale['id']))
 			{
-				$this->Sale_model->delete_sale($sales_id);
+				$this->Acc_sales_model->delete_sale($sales_id);
 				redirect('acc_sales/index');
 			}
 			else
