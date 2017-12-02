@@ -447,7 +447,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 				<i class="fa fa-angle-left pull-right"></i>
 			  </a>
 			  <ul class="treeview-menu">
-				<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Sales</a></li>
+				<li><a href="<?php echo site_url('Acc_sales/index');?>"><i class="fa  fa-caret-right"></i>Sales</a></li>
 			  
 				<li>
 					<a href="#">
@@ -456,8 +456,8 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 						<i class="fa fa-angle-left pull-right"></i>
 					</a>
 					<ul class="treeview-menu">
-						<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Direct</a></li>
-						<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Indirect</a></li>
+						<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Direct</a></li>
+						<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Indirect</a></li>
 					</ul>
 				</li>
 			 
@@ -631,7 +631,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.3.9
+      <b>Version</b> 1.4.0
     </div>
    <small> Designed & Developed by: </small> <strong><a href="http://jagtechno.com" target="_blank">JagTechno</a></strong> 
   </footer>
