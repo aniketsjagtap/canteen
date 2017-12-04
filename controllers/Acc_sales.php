@@ -164,7 +164,7 @@ class acc_sales extends CI_Controller{
 				if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
 				{      
 					$params = array(
-						'location_id' => $this->input->post('location_id'),
+						
 						'acc_salesType_id' => $this->input->post('salesType_id'),
 						'sale' => $this->input->post('amount'),
 						'remark' => $this->input->post('remark'),
