@@ -43,23 +43,17 @@ class Acc_sales_model extends CI_Model
     function add_sale($params)
     {
 		//print_r($params);
-		for($i=0;$i<sizeof($params['product_id']);$i++){
+		for($i=0;$i<sizeof($params['location_id']);$i++){
 			
-			
-			$tmp['product_id'] = $params['product_id'][$i];
-			$tmp['quantity'] = $params['quantity'][$i];
-			$tmp['unit_id'] = $params['unit_id'][$i];
+			$tmp['location_id'] = $params['location_id'][$i];
 			$tmp['acc_salesType_id'] = $params['acc_salesType_id'][$i];
-			$tmp['remark'] = $params['remark'][$i];
-			
 			$tmp['date'] = $params['date'];
-			$tmp['location_id'] = $params['location_id'];
-			
-			
+			$tmp['sale'] = $params['sale'][$i];
+			$tmp['remark'] = $params['remark'][$i];
 			$this->db->insert('acc_sales',$tmp);
 			$this->db->insert_id();
 			// echo "<br>**************<br>";
-			 // print_r($tmp);
+			  print_r($tmp);
 		}
 		return true;
         // $this->db->insert('acc_sales',$params);

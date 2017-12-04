@@ -40,6 +40,7 @@ class acc_sales extends CI_Controller{
 			
 			$this->data['pp'] = $specialPerm;
 			$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
+			
 			if($this->User_model->hasPermission('WILD_CARD',$id)){
 				$this->data['sales'] = $this->Acc_sales_model->get_all_acc_sales();
 			}
@@ -51,17 +52,8 @@ class acc_sales extends CI_Controller{
 			$this->data['Type'] = $this->Type_model->get_all_Type();
 			
 			$this->data['location'] = $this->Location_model->get_all_location();
-			$this->data['product'] = $this->Product_model->get_all_product();
 			
 			
-			$this->data['unit'] = $this->Unit_model->get_all_units();
-			
-			for($i=0;$i<sizeof($this->data['sales']);$i++)
-			{
-				$this->data['rawMaterial'][$i] = $this->Product_rawmaterial_model->get_product_first_rawMaterial($this->data['sales'][$i]['product_id']);
-				$this->data['rawMaterialType'][$i] = $this->Rawmaterial_model->get_rawmaterial($this->data['rawMaterial'][$i]['rawMaterial_id']);
-				$this->data['sales'][$i]['rawMaterialType'] = $this->data['rawMaterialType'][$i]['type_id'];
-			}
 			$this->template
 				->title('Welcome','My Aapp')
 				->build('acc_sales/index',$this->data);
@@ -91,10 +83,8 @@ class acc_sales extends CI_Controller{
 				return false;
 			}
 			
-				// $this->form_validation->set_rules('Product_id', '<b>Product</b>', 'trim|required');
-				// $this->form_validation->set_rules('unit_id', '<b>Unit</b>', 'trim|required|integer|min_length[10]|max_length[11]');
-				// $this->form_validation->set_rules('price', '<b>Price</b>', 'trim|required|integer|min_length[1]|max_length[4]');
-				// $this->form_validation->set_rules('quantity', '<b>Quantity</b>', 'trim|required|integer|min_length[1]|max_length[4]');
+				// $this->form_validation->set_rules('location_id', '<b>Location</b>', 'trim|required');
+				// $this->form_validation->set_rules('amount', '<b>Amount</b>','trim|required|integer|min_length[1]|max_length[4]');
 				$this->form_validation->set_rules('dtp_input2', '<b>Date</b>', 'trim|required');
 				
 			if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
@@ -105,16 +95,12 @@ class acc_sales extends CI_Controller{
 				$timeto =  mktime($hours, $minutes, $seconds, $month, $day, $year);
 				//echo $timeto;
 				$params = array(
-					'unit_id' => $this->input->post('unit_id'),
-					'location_id' => $user['location_id'],
-					
-					'salesType_id' => $this->input->post('salesType_id'),
-					'product_id' => $this->input->post('product_id'),
-					'quantity' => $this->input->post('quantity'),
+					'location_id' => $this->input->post('location_id'),
+					'acc_salesType_id' => $this->input->post('salesType_id'),
+					'sale' => $this->input->post('amount'),
 					'date' => $timeto,
 					'remark' => $this->input->post('remark'),
-					//'price' => $this->input->post('price'),
-				);
+					);
 				// $release_date=$_POST['dtp_input2'];
 				//echo date("Y-m-d H:i:s",strtotime($release_date));
 				// print_r($params);
@@ -133,7 +119,7 @@ class acc_sales extends CI_Controller{
 				$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
 				$this->data['sales'] = $this->Acc_sales_model->get_all_acc_sales();
 				$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
-
+				$this->data['location'] = $this->Location_model->get_all_location();
 				
 				
 				$this->data['product'] = $this->Product_model->get_all_product();
@@ -168,27 +154,22 @@ class acc_sales extends CI_Controller{
 			}
 			// check if the sale exists before trying to edit it
 			$this->data['sale'] = $this->Acc_sales_model->get_sale($sales_id);
+			$this->data['location'] = $this->Location_model->get_all_location();
 			
 			if(isset($this->data['sale']['id']))
 			{
-			  // $this->form_validation->set_rules('Product_id', '<b>Product</b>', 'trim|required');
-				$this->form_validation->set_rules('unit_id', '<b>Unit</b>', 'trim|required|integer|min_length[1]|max_length[3]');
-				//$this->form_validation->set_rules('price', '<b>Price</b>', 'trim|required|integer|min_length[1]|max_length[4]');
-				$this->form_validation->set_rules('quantity', '<b>Quantity</b>', 'trim|required|integer|min_length[1]|max_length[4]');
+				
+				$this->form_validation->set_rules('amount', '<b>Amount</b>', 'trim|required|integer|min_length[1]|max_length[10]');
 					
 				if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
 				{      
 					$params = array(
-						'unit_id' => $this->input->post('unit_id'),
-						'salesType_id' => $this->input->post('salesType_id'),
-						//'location_id' => $this->input->post('location_id'),
-						'quantity' => $this->input->post('quantity'),
-						//'product_id' => $this->input->post('product_id'),
-						//'date' => $this->input->post('date'),
-						//'price' => $this->input->post('price'),
+						'location_id' => $this->input->post('location_id'),
+						'acc_salesType_id' => $this->input->post('salesType_id'),
+						'sale' => $this->input->post('amount'),
 						'remark' => $this->input->post('remark'),
 					);
-
+					
 					$this->Acc_sales_model->update_sale($sales_id,$params);            
 					redirect('acc_sales/index');
 				}

@@ -13,12 +13,12 @@
 				};
 	 
 				// total_salary over all pages
-				total_salary = api.column( 8 ).data().reduce( function (a, b) {
+				total_salary = api.column( 3 ).data().reduce( function (a, b) {
 					return intVal(a) + intVal(b);
 				},0 );
 				
 				// total_page_salary over this page
-				total_page_salary = api.column( 8, { page: 'current'} ).data().reduce( function (a, b) {
+				total_page_salary = api.column( 3, { page: 'current'} ).data().reduce( function (a, b) {
 					return intVal(a) + intVal(b);
 				}, 0 );
 				
@@ -35,15 +35,12 @@
 					{ type: "text" },
 					{ type: "text" },
 					
-					{ type: "text" },
+					null,
+					null,
 					{ type: "text" },
 					
-					null,
-					null,
-					null,
-					null,
-					null,
-					null,
+					
+					
 					// {
             // sClass: 'dateField' 
         // },
@@ -76,7 +73,7 @@
 			$('#min').on( 'change', function () {
 				//alert(this.value);
 				table
-					.columns( 10 )
+					.columns( 4 )
 					.search( this.value )
 					.draw();
 			} );
@@ -103,16 +100,11 @@
 							<th>Sr. No.</th>
 							
 							<th>Location</th>
-							
-							<th>Product</th>
-							<th>Raw Material Type</th>
 							<th>Sales Type</th>
-							<th>Rate</th>
-							<th>Quantity</th>
-							<th>Unit</th>
 							<th>Amount</th>
-							<th>Remark</th>
+							
 							<th style="width:300px">Date</th>
+							<th>Remark</th>
 							<th>Actions</th>
 						</tr>
 						<tr>
@@ -120,15 +112,9 @@
 							
 							<th></th>
 							<th></th>
-							
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
 							<th id="totalPrice"></th>
-							<th></th>
 							<th><input name="min" id="min" type="text"></th>
+							<th></th>
 							<th></th>
 						</tr>
 					</thead>
@@ -144,32 +130,22 @@
 									} ?>
 						</td>
 						
-						<td><?php foreach($product as $p){
-								if($s['product_id']== $p['id'])
-									echo $p['name'];}  ?></td>
-						<td><?php foreach($Type as $t){
-								if($s['rawMaterialType']== $t['id'])
-									echo $t['name'];} ?></td>
+					
 							<td><?php foreach($saleType as $st){
-								if($s['salesType_id']== $st['id'])
+								if($s['acc_salesType_id']== $st['id'])
 							echo $st['name'];} ?></td>
-						<td><?php foreach($product as $p){
-								if($s['product_id']== $p['id'])
-									echo $p['price'];}  ?></td>
-						<td><?php echo $s['quantity']; ?></td>
-						<td><?php foreach($unit as $u){
-								if($s['unit_id']== $u['id'])
-							echo $u['name'];} ?></td>
-						<td><?php foreach($product as $p){
-								if($s['product_id']== $p['id'])
-									echo ($p['price']*$s['quantity']);}  ?></td>
-						<td><?php echo $s['remark']; ?></td>
+						
+						
+						<td><?php echo $s['sale']; ?></td>
+
 						<td><?php $registered = date( 'm/d/Y', $s['date'] );
 								echo $registered; ?></td>
+						<td><?php echo $s['remark']; ?></td>
 						<td>
-                            <a href="<?php echo site_url('sale/edit/'.$s['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
+						
+                            <a href="<?php echo site_url('Acc_sales/edit/'.$s['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
                             <?php if($p_role['role_id']==1){?>
-								<a href="<?php echo site_url('sale/remove/'.$s['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+								<a href="<?php echo site_url('Acc_sales/remove/'.$s['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
 							<?php } ?>
 					   </td>
                     </tr>

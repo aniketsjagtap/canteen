@@ -28,15 +28,14 @@ $(document).ready(function(){
 	//var wrapper = $('.field_wrapper'); //Input field wrapper
 	var selectWrapper1 = $('.select_wrapper'); //Input field wrapper
 	var salesWrapper1 = $('.sales_wrapper'); //Input field wrapper
-	var unitWrapper1 = $('.unit_wrapper'); //Input field wrapper
-	var quantityWrapper1 = $('.quantity_wrapper');
+	var amountWrapper1 = $('.amount_wrapper');
 	var remarkWrapper1 = $('.remark_wrapper');
 	
 	// var fieldHTML = '<div><input required type="number" step="0.1" name="price[]" value="" class="form-control"/></div>'; //New input field html 
-	var selectHTML1 = '<div><select required name="product_id[]" class="form-control"><option value="">Select Product</Option><?php foreach($product as $key => $value){ ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option> <?php } ?></select></div>';
+	var selectHTML1 = '<div><select required name="location_id[]" class="form-control"><option value="">Select Product</Option><?php foreach($location as $key => $value){ ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option> <?php } ?></select></div>';
 	var salesHTML1 = '<div><select required name="salesType_id[]" class="form-control"><option value="">Select Sales Type</Option><?php foreach($saleType as $key => $value){ ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option> <?php } ?></select> </div>';
-	var unitHTML1 = '<div><select required name="unit_id[]" class="form-control"><option value="">Select Unit</Option><?php foreach($unit as $key => $value){ ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option><?php } ?></select></div>';
-	var quantityHTML1 = '<div><input required type="number"  step="1" name="quantity[]" value="" id="quantity" class="form-control" /></div>';
+	
+	var amountHTML1 = '<div><input required type="number"  step="0.001" name="amount[]" value="" id="amount" class="form-control" /></div>';
 	var remarkHTML1 = '<div><input  type="text" maxlength="500"  name="remark[]" value="" id="remark" class="form-control" /></div>';
 	
 	
@@ -48,9 +47,7 @@ $(document).ready(function(){
 			//$(wrapper).append(fieldHTML); // Add field html
 			$(selectWrapper1).append(selectHTML1); // Add field html
 			$(salesWrapper1).append(salesHTML1); // Add field html
-			
-				$(unitWrapper1).append(unitHTML1); // Add field html
-				$(quantityWrapper1).append(quantityHTML1); // Add field html
+				$(amountWrapper1).append(amountHTML1); // Add field html
 				$(remarkWrapper1).append(remarkHTML1); // Add field html
 			
 		}
@@ -65,8 +62,7 @@ $(document).ready(function(){
 			//	$(wrapper).children().last().remove(); //Remove field html
 				$(selectWrapper1).children().last().remove(); //Remove field html
 				$(salesWrapper1).children().last().remove(); //Remove field html
-				$(unitWrapper1).children().last().remove(); //Remove field html
-				$(quantityWrapper1).children().last().remove(); //Remove field html
+				$(amountWrapper1).children().last().remove(); //Remove field html
 				$(remarkWrapper1).children().last().remove(); //Remove field html
 				x--; //Decrement field counter
 			}
@@ -91,7 +87,7 @@ $(document).ready(function(){
           		<div class="row clearfix">
 				<div class='col-md-12'>
 				   <!--<div class="form-group">
-						<label for="dtp_input1" class="col-md-2 control-label">DateTime Picking</label>
+						<label for="dtp_input1" class="col-md-3 control-label">DateTime Picking</label>
 						<div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
 							<input class="form-control" size="16" type="text" value="" readonly>
 							<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
@@ -99,7 +95,7 @@ $(document).ready(function(){
 						</div>
 						<input type="hidden" id="dtp_input1" value="" /><br/>
 					</div>-->
-					<label for="dtp_input2" class="col-md-2 control-label">Date :</label>
+					<label for="dtp_input2" class="col-md-3 control-label">Date :</label>
 					<div class="form-group">
 						<div class="input-group date form_date col-md-6" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
 							<input required name="dtp_input2" class="form-control" size="16" type="text" value="" readonly>
@@ -110,14 +106,14 @@ $(document).ready(function(){
 					</div>
 				</div>
 				
-				<div class="col-md-2">
-						<label for="product_id" class="control-label">Product *</label>
+				<div class="col-md-3">
+						<label for="location_id" class="control-label">Location *</label>
 						<div class="form-group">
 							<div class="select_wrapper">
 								<div>
-									<select required name="product_id[]" class="form-control"> 
-										<option value="">Select Product</Option>
-										<?php foreach($product as $key => $value){ ?>
+									<select required name="location_id[]" class="form-control"> 
+										<option value="">Select Location</Option>
+										<?php foreach($location as $key => $value){ ?>
 											<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option> 
 										<?php } ?>
 									</select>
@@ -125,14 +121,14 @@ $(document).ready(function(){
 							</div>
 						</div>
 					</div>
-					<!--<div class="col-md-2">
-						<label for="product_id" class="control-label">Product</label>
+					<!--<div class="col-md-3">
+						<label for="location_id" class="control-label">Product</label>
 						<div class="form-group">
-							<input required type="text" name="product_id" value="<?php echo $this->input->post('product_id'); ?>" class="form-control" id="product_id" />
+							<input required type="text" name="location_id" value="<?php echo $this->input->post('location_id'); ?>" class="form-control" id="location_id" />
 						</div>
 					</div>-->
 					
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<label for="salesType" class="control-label">Sales Type *</label>
 						<div class="form-group sales_wrapper">
 							<div>
@@ -145,27 +141,15 @@ $(document).ready(function(){
 							</div>
 						</div>
 					</div>
-					<div class="col-md-2">
-						<label for="quantity" class="control-label">Quantity *</label>
-						<div class="form-group quantity_wrapper">
+					<div class="col-md-3">
+						<label for="amount" class="control-label">Amount(in INR) *</label>
+						<div class="form-group amount_wrapper">
 							<div>
-								<input required type="number"  step="1" name="quantity[]" value="" id="quantity" class="form-control" />
+								<input required type="number"  step="0.001" name="amount[]" value="" id="amount" class="form-control" />
 							</div>
 						</div>
 					</div>
-					<div class="col-md-2">
-						<label for="unit_id" class="control-label">Unit *</label>
-						<div class="form-group unit_wrapper">
-							<div>
-								<select required name="unit_id[]" class="form-control"> 
-										<option value="">Select Unit</Option>
-										<?php foreach($unit as $key => $value){ ?>
-											<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option> 
-										<?php } ?>
-								</select> 
-							</div>
-						</div>
-					</div>
+					
 					<div class="col-md-3">
 						<label for="remark" class="control-label">Remark </label>
 						<div class="form-group remark_wrapper">
