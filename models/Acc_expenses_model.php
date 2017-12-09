@@ -12,73 +12,67 @@ class Acc_expenses_model extends CI_Model
     }
     
     /*
-     * Get acc_expenses by id
+     * Get expense by id
      */
-    function get_acc_expenses($id)
+    function get_acc_expense($id)
     {
         return $this->db->get_where('acc_expenses',array('id'=>$id))->row_array();
     }
         
     /*
-     * Get all acc_expenses
+     * Get all acc_expense
      */
     function get_all_acc_expenses()
     {
-        $this->db->order_by('location_id', 'desc');
+        $this->db->order_by('location_id', 'asc');
         return $this->db->get('acc_expenses')->result_array();
     }
+	
 	/*
-     * Get all acc_expenses
+     * Get all acc_expense
      */
-    function get_location_acc_expenses($location_id)
+    function get_location_acc_expense($location_id)
     {
         $this->db->order_by('date', 'asc');
         return $this->db->get_where('acc_expenses',array('location_id'=>$location_id))->result_array();
     }
         
     /*
-     * function to add new acc_expenses
+     * function to add new expense
      */
     function add_acc_expenses($params)
     {
-		// $tmp = NULL;
-		// print_r($params);
-		// echo sizeof($params['rawMaterial_id']);
-		for($i=0;$i<sizeof($params['rawMaterial_id']);$i++){
-			$tmp['acc_expensesNumber'] = $params['acc_expensesNumber'];
-			$tmp['supplier_id'] = $params['supplier_id'];
-			$tmp['rawMaterial_id'] = $params['rawMaterial_id'][$i];
-			$tmp['order_id'] = $params['order_id'];
-			$tmp['quantity'] = $params['quantity'][$i];
-			$tmp['unit_id'] = $params['unit_id'][$i];
-			$tmp['price'] = $params['price'][$i];
-			$tmp['date'] = $params['date'];
-			$tmp['location_id'] = $params['location_id'];
+		//print_r($params);
+		for($i=0;$i<sizeof($params['location_id']);$i++){
 			
+			$tmp['location_id'] = $params['location_id'][$i];
+			$tmp['acc_expense_item_id'] = $params['acc_expense_item_id'][$i];
+			$tmp['date'] = $params['date'];
+			$tmp['expense'] = $params['expense'][$i];
+			$tmp['remark'] = $params['remark'][$i];
 			$this->db->insert('acc_expenses',$tmp);
 			$this->db->insert_id();
-			//echo "<br>**************<br>";
-			// print_r($tmp);
+			// echo "<br>**************<br>";
+			//  print_r($tmp);
 		}
 		return true;
-		
-        //$this->db->insert('acc_expenses',$params);
-       // return $this->db->insert_id();
+        // $this->db->insert('acc_expenses',$params);
+        // return $this->db->insert_id();
     }
     
     /*
-     * function to update acc_expenses
+     * function to update expense
      */
-    function update_acc_expenses($id,$params)
+    function update_acc_expense($id,$params)
     {
         $this->db->where('id',$id);
         return $this->db->update('acc_expenses',$params);
     }
     
     /*
-     * function to delete acc_expenses
+     * function to delete expense
      */
-    function delete_acc_expenses($id)
+    function delete_acc_expense($id)
     {
         return $this->db->delete('acc_expenses',array('id'=>$id));
     }

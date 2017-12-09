@@ -1,90 +1,8 @@
-<script>
- $(document).ready(function(){
-		/*******************************Sales Index***********************************************/
-		
-		$('#data_tbl1').dataTable({	
-		"lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
-		"sPaginationType": "full_numbers",
-		"footerCallback": function ( row, data, start, end, display ) {
-				var api = this.api(), data;	 
-				// Remove the formatting to get integer data for summation
-				var intVal = function ( i ) {
-					return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ?	i : 0;
-				};
-	 
-				// total_salary over all pages
-				total_salary = api.column( 3 ).data().reduce( function (a, b) {
-					return intVal(a) + intVal(b);
-				},0 );
-				
-				// total_page_salary over this page
-				total_page_salary = api.column( 3, { page: 'current'} ).data().reduce( function (a, b) {
-					return intVal(a) + intVal(b);
-				}, 0 );
-				
-				total_page_salary = parseFloat(total_page_salary);
-				total_salary = parseFloat(total_salary);
-								// Update footer
-				$('#totalPrice').html(total_page_salary.toFixed(2)+"/"+total_salary.toFixed(2));		
-				//$('#totalPrice').html("Total:<br>"+total_page_salary.toFixed(2));		
-				},		
-		})
-		  .columnFilter({ sPlaceHolder: "head:after",
-			aoColumns: [ null,	
-			
-					{ type: "text" },
-					{ type: "text" },
-					
-					null,
-					null,
-					{ type: "text" },
-					
-					
-					
-					// {
-            // sClass: 'dateField' 
-        // },
-					//{ type:"text"},
-					null
-				]
-		});
-		
-		$('#data_tbl1_length').addClass("no-print");
-		$('#data_tbl1_filter').addClass("no-print");
-		
-		   
-      
-            $("#min").datepicker(
-				{  
-					// changeMonth: true, 
-					// changeYear: true , 
-					 autoclose: true,
-					// dateFormat:"d/m/Y",
-					//format: "yy-mm-dd" ,
-					
-
-				}
-			);
-           
-			
-			var table = $('#data_tbl1').DataTable();
- 
-			// #column3_search is a <input type="text"> element
-			$('#min').on( 'change', function () {
-				//alert(this.value);
-				table
-					.columns( 4 )
-					.search( this.value )
-					.draw();
-			} );
-       
-});
-</script>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Account Sales Report</h3>
+                <h3 class="box-title">Account Sale Types</h3>
             	<div class="box-tools">
                     <a href="<?php echo site_url('acc_sales/add');?>" class="btn btn-success btn-sm">Add</a> 
 					
@@ -98,22 +16,13 @@
 					<thead>
 						<tr>
 							<th>Sr. No.</th>
-							
-							<th>Location</th>
 							<th>Sales Type</th>
-							<th>Amount</th>
-							
-							<th style="width:300px">Date</th>
-							<th>Remark</th>
+							<th>Description</th>
 							<th>Actions</th>
 						</tr>
 						<tr>
 							<th></th>
-							
 							<th></th>
-							<th></th>
-							<th id="totalPrice"></th>
-							<th><input name="min" id="min" type="text"></th>
 							<th></th>
 							<th></th>
 						</tr>

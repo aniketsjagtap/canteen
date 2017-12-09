@@ -4,24 +4,21 @@
  * www.crudigniter.com
  */
  
-class acc_expenses extends CI_Controller{
+class acc_master extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('acc_expenses_model');
-        $this->load->model('acc_expensesItem_model');
-        $this->load->model('acc_expensesType_model');
-        $this->load->model('Location_model');
+        $this->load->model('Acc_salesType_model');
     } 
 
     /*
-     * Listing of expenses
+     * Listing of sales
      */
     function index()
     {
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
-			if(!($this->User_model->hasPermission('read',$id)&&($this->User_model->hasPermission('expenses',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('read',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
@@ -38,21 +35,21 @@ class acc_expenses extends CI_Controller{
 			$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
 			
 			if($this->User_model->hasPermission('WILD_CARD',$id)){
-				$this->data['expenses'] = $this->acc_expenses_model->get_all_acc_expenses();
+				$this->data['sales'] = $this->Acc_sales_model->get_all_acc_sales();
 			}
 			else{
-				$this->data['expenses'] = $this->acc_expenses_model->get_location_acc_expenses($user['location_id']);
+				$this->data['sales'] = $this->Acc_sales_model->get_location_acc_sales($user['location_id']);
 			}
 			
-			$this->data['expenseSubtype'] = $this->acc_expensesType_model->get_all_expenseSubtype();
-			$this->data['expenseItem'] = $this->acc_expensesItem_model->get_all_acc_expense_items();
+			$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
+			$this->data['Type'] = $this->Type_model->get_all_Type();
 			
 			$this->data['location'] = $this->Location_model->get_all_location();
 			
 			
 			$this->template
 				->title('Welcome','My Aapp')
-				->build('acc_expenses/index',$this->data);
+				->build('acc_sales/index',$this->data);
 		}
 		else{
 			$this->template
@@ -65,7 +62,7 @@ class acc_expenses extends CI_Controller{
     }
 
     /*
-     * Adding a new expense
+     * Adding a new sale
      */
     function add()
     {   
@@ -74,7 +71,7 @@ class acc_expenses extends CI_Controller{
 			$user = $this->User_model->get('person_id', $id);
 				unset($user['password']);
 			
-			if(!($this->User_model->hasPermission('add',$id)&&($this->User_model->hasPermission('expenses',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('add',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
@@ -92,16 +89,16 @@ class acc_expenses extends CI_Controller{
 				//echo $timeto;
 				$params = array(
 					'location_id' => $this->input->post('location_id'),
-					'acc_expense_item_id' => $this->input->post('expenseItem_id'),
-					'expense' => $this->input->post('amount'),
+					'acc_salesType_id' => $this->input->post('salesType_id'),
+					'sale' => $this->input->post('amount'),
 					'date' => $timeto,
 					'remark' => $this->input->post('remark'),
 					);
 				// $release_date=$_POST['dtp_input2'];
 				//echo date("Y-m-d H:i:s",strtotime($release_date));
 				// print_r($params);
-				$expense_id = $this->acc_expenses_model->add_acc_expenses($params);
-				redirect('acc_expenses/index');
+				$sale_id = $this->Acc_sales_model->add_sale($params);
+				redirect('acc_sales/index');
 			}else{
 				
 				$user_role = $this->User_model->loadRoles($user['person_id']);
@@ -113,14 +110,17 @@ class acc_expenses extends CI_Controller{
 				
 				$this->data['pp'] = $specialPerm;
 				$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-				$this->data['expenses'] = $this->acc_expenses_model->get_all_acc_expenses();
-				$this->data['expenseItem'] = $this->acc_expensesItem_model->get_all_acc_expense_items();
+				$this->data['sales'] = $this->Acc_sales_model->get_all_acc_sales();
+				$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
 				$this->data['location'] = $this->Location_model->get_all_location();
 				
 				
+				$this->data['product'] = $this->Product_model->get_all_product();
+				$this->data['unit'] = $this->Unit_model->get_all_units();
+				
 				$this->template
 					->title('Welcome','My Aapp')
-					->build('acc_expenses/add',$this->data);
+					->build('acc_sales/add',$this->data);
 			}
 		}
 		else{
@@ -134,38 +134,37 @@ class acc_expenses extends CI_Controller{
     }  
 
     /*
-     * Editing a expense
+     * Editing a sale
      */
-    function edit($expenses_id)
+    function edit($sales_id)
     {   
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
 			
-			if(!($this->User_model->hasPermission('update',$id)&&($this->User_model->hasPermission('expenses',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('update',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
-			// check if the expense exists before trying to edit it
-			$this->data['expense'] = $this->acc_expenses_model->get_acc_expense($expenses_id);
+			// check if the sale exists before trying to edit it
+			$this->data['sale'] = $this->Acc_sales_model->get_sale($sales_id);
 			$this->data['location'] = $this->Location_model->get_all_location();
 			
-			if(isset($this->data['expense']['id']))
+			if(isset($this->data['sale']['id']))
 			{
 				
-				$this->form_validation->set_rules('expenseItem_id', '<b>Item</b>', 'trim|required|integer|min_length[1]|max_length[100]');
 				$this->form_validation->set_rules('amount', '<b>Amount</b>', 'trim|required|integer|min_length[1]|max_length[10]');
 					
 				if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
 				{      
 					$params = array(
 						
-						'acc_expense_item_id' => $this->input->post('expenseItem_id'),
-						'expense' => $this->input->post('amount'),
+						'acc_salesType_id' => $this->input->post('salesType_id'),
+						'sale' => $this->input->post('amount'),
 						'remark' => $this->input->post('remark'),
 					);
 					
-					$this->acc_expenses_model->update_acc_expense($expenses_id,$params);            
-					redirect('acc_expenses/index');
+					$this->Acc_sales_model->update_sale($sales_id,$params);            
+					redirect('acc_sales/index');
 				}
 				else
 				{
@@ -180,16 +179,18 @@ class acc_expenses extends CI_Controller{
 					
 					$this->data['pp'] = $specialPerm;
 					$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-					$this->data['expenseItem'] = $this->acc_expensesItem_model->get_all_acc_expense_items();
+					$this->data['product'] = $this->Product_model->get_all_product();
+					$this->data['unit'] = $this->Unit_model->get_all_units();
+					$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
 					
 					
 					$this->template
 						->title('Welcome','My Aapp')
-						->build('acc_expenses/edit',$this->data);
+						->build('acc_sales/edit',$this->data);
 				}
 			}
 			else
-				show_error('The expense you are trying to edit does not exist.');
+				show_error('The sale you are trying to edit does not exist.');
 		}
 		else{
 			$this->template
@@ -200,27 +201,27 @@ class acc_expenses extends CI_Controller{
     } 
 
     /*
-     * Deleting expense
+     * Deleting sale
      */
-    function remove($expenses_id)
+    function remove($sales_id)
     {
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
 			
-			if(!($this->User_model->hasPermission('delete',$id)&&($this->User_model->hasPermission('expenses',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('delete',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
-			$expense = $this->acc_expenses_model->get_expense($expenses_id);
+			$sale = $this->Acc_sales_model->get_sale($sales_id);
 
-			// check if the expense exists before trying to delete it
-			if(isset($expense['id']))
+			// check if the sale exists before trying to delete it
+			if(isset($sale['id']))
 			{
-				$this->acc_expenses_model->delete_expense($expenses_id);
-				redirect('acc_expenses/index');
+				$this->Acc_sales_model->delete_sale($sales_id);
+				redirect('acc_sales/index');
 			}
 			else
-				show_error('The expense you are trying to delete does not exist.');
+				show_error('The sale you are trying to delete does not exist.');
 		}
 		else{
 			$this->template

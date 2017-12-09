@@ -209,7 +209,7 @@ function searchTable(inputVal)
 .field_wrapper div{ margin-bottom:10px;}
 .formula_wrapper div,.messformula_wrapper div{ margin-bottom:10px;}
 .select_wrapper div{ margin-bottom:10px;}
-.sales_wrapper div{ margin-bottom:10px;}
+.sales_wrapper div,.expenses_wrapper div{ margin-bottom:10px;}
 .quantity_wrapper div,.order_quantity_wrapper div{ margin-bottom:10px;}
 .amount_wrapper div,.order_quantity_wrapper div{ margin-bottom:10px;}
 .remark_wrapper div{ margin-bottom:10px;}
@@ -449,18 +449,19 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 			  </a>
 			  <ul class="treeview-menu">
 				<li><a href="<?php echo site_url('Acc_sales/index');?>"><i class="fa  fa-caret-right"></i>Sales</a></li>
+				<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Expenses</a></li>
 			  
-				<li>
+				<!--<li>
 					<a href="#">
 						<i class="fa fa-caret-right"></i>
 						<span>Expenses</span>
 						<i class="fa fa-angle-left pull-right"></i>
 					</a>
 					<ul class="treeview-menu">
-						<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Direct</a></li>
-						<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Indirect</a></li>
+						<li><a href="<?php// echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Direct</a></li>
+						<li><a href="<?php// echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Indirect</a></li>
 					</ul>
-				</li>
+				</li>-->
 			 
 				<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Report</a></li>
 			 
@@ -471,8 +472,18 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 						<i class="fa fa-angle-left pull-right"></i>
 					</a>
 					<ul class="treeview-menu">
-						<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Sales Type</a></li>
-						<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Expenses Types</a></li>
+						<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Sale Type</a></li>
+						<li>
+							<a href="#">
+								<i class="fa fa-caret-right"></i>
+								<span>Expense</span>
+								<i class="fa fa-angle-left pull-right"></i>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Expense Types</a></li>
+								<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Expense Sub-Types</a></li>
+								<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Expense Items</a></li>
+							</ul>
 					</ul>
 				</li>
 			  </ul>
@@ -632,7 +643,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.4.1
+      <b>Version</b> 1.4.2
     </div>
    <small> Designed & Developed by: </small> <strong><a href="http://jagtechno.com" target="_blank">JagTechno</a></strong> 
   </footer>

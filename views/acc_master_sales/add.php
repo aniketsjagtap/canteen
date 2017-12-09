@@ -27,13 +27,13 @@ $(document).ready(function(){
 	
 	//var wrapper = $('.field_wrapper'); //Input field wrapper
 	var selectWrapper1 = $('.select_wrapper'); //Input field wrapper
-	var expensesWrapper1 = $('.expenses_wrapper'); //Input field wrapper
+	var salesWrapper1 = $('.sales_wrapper'); //Input field wrapper
 	var amountWrapper1 = $('.amount_wrapper');
 	var remarkWrapper1 = $('.remark_wrapper');
 	
-	//New input field html 
+	// var fieldHTML = '<div><input required type="number" step="0.1" name="price[]" value="" class="form-control"/></div>'; //New input field html 
 	var selectHTML1 = '<div><select required name="location_id[]" class="form-control"><option value="">Select Product</Option><?php foreach($location as $key => $value){ ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option> <?php } ?></select></div>';
-	var expensesHTML1 = '<div><select required name="expenseItem_id[]" class="form-control"><option value="">Select Item</Option><?php foreach($expenseItem as $key => $value){ ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option><?php } ?></select> </div>';
+	var salesHTML1 = '<div><select required name="salesType_id[]" class="form-control"><option value="">Select Sales Type</Option><?php foreach($saleType as $key => $value){ ?><option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option> <?php } ?></select> </div>';
 	
 	var amountHTML1 = '<div><input required type="number"  step="0.001" name="amount[]" value="" id="amount" class="form-control" /></div>';
 	var remarkHTML1 = '<div><input  type="text" maxlength="500"  name="remark[]" value="" id="remark" class="form-control" /></div>';
@@ -46,7 +46,7 @@ $(document).ready(function(){
 			x++; //Increment field counter
 			//$(wrapper).append(fieldHTML); // Add field html
 			$(selectWrapper1).append(selectHTML1); // Add field html
-			$(expensesWrapper1).append(expensesHTML1); // Add field html
+			$(salesWrapper1).append(salesHTML1); // Add field html
 				$(amountWrapper1).append(amountHTML1); // Add field html
 				$(remarkWrapper1).append(remarkHTML1); // Add field html
 			
@@ -61,7 +61,7 @@ $(document).ready(function(){
 			   // $(this).parent('div').remove(); //Remove field html
 			//	$(wrapper).children().last().remove(); //Remove field html
 				$(selectWrapper1).children().last().remove(); //Remove field html
-				$(expensesWrapper1).children().last().remove(); //Remove field html
+				$(salesWrapper1).children().last().remove(); //Remove field html
 				$(amountWrapper1).children().last().remove(); //Remove field html
 				$(remarkWrapper1).children().last().remove(); //Remove field html
 				x--; //Decrement field counter
@@ -79,10 +79,10 @@ $(document).ready(function(){
     <div class="col-md-12">
       	<div class="box box-info">
             <div class="box-header with-border">
-              	<h3 class="box-title">Account Expense Add</h3>
+              	<h3 class="box-title">Account Sale Types Add</h3>
             </div>
 			
-            <?php echo form_open('acc_expenses/add'); ?>
+            <?php echo form_open('acc_sales/add'); ?>
           	<div class="box-body">
           		<div class="row clearfix">
 				<div class='col-md-12'>
@@ -129,12 +129,12 @@ $(document).ready(function(){
 					</div>-->
 					
 					<div class="col-md-3">
-						<label for="expensesType" class="control-label">Item *</label>
-						<div class="form-group expenses_wrapper">
+						<label for="salesType" class="control-label">Sales Type *</label>
+						<div class="form-group sales_wrapper">
 							<div>
-								<select required name="expenseItem_id[]" class="form-control"> 
-										<option value="">Select Item</Option>
-										<?php foreach($expenseItem as $key => $value){ ?>
+								<select required name="salesType_id[]" class="form-control"> 
+										<option value="">Select Sales Type</Option>
+										<?php foreach($saleType as $key => $value){ ?>
 											<option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option> 
 										<?php } ?>
 								</select> 
