@@ -472,7 +472,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 						<i class="fa fa-angle-left pull-right"></i>
 					</a>
 					<ul class="treeview-menu">
-						<li><a href="<?php echo site_url('Report/index');?>"><i class="fa  fa-caret-right"></i>Sale Type</a></li>
+						<li><a href="<?php echo site_url('Acc_master_sale_types/index');?>"><i class="fa  fa-caret-right"></i>Sale Type</a></li>
 						<li>
 							<a href="#">
 								<i class="fa fa-caret-right"></i>
@@ -480,9 +480,9 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
 								<i class="fa fa-angle-left pull-right"></i>
 							</a>
 							<ul class="treeview-menu">
-								<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Expense Types</a></li>
-								<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Expense Sub-Types</a></li>
-								<li><a href="<?php echo site_url('Acc_expenses/index');?>"><i class="fa  fa-caret-right"></i>Expense Items</a></li>
+								<li><a href="<?php echo site_url('Acc_master_expense_types/index');?>"><i class="fa  fa-caret-right"></i>Expense Types</a></li>
+								<li><a href="<?php echo site_url('Acc_master_expense_sub_types/index');?>"><i class="fa  fa-caret-right"></i>Expense Sub-Types</a></li>
+								<li><a href="<?php echo site_url('Acc_master_expense_items/index');?>"><i class="fa  fa-caret-right"></i>Expense Items</a></li>
 							</ul>
 					</ul>
 				</li>
@@ -643,7 +643,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.4.3
+      <b>Version</b> 1.4.5
     </div>
    <small> Designed & Developed by: </small> <strong><a href="http://jagtechno.com" target="_blank">JagTechno</a></strong> 
   </footer>

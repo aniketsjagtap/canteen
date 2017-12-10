@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Account Sale Types</h3>
+                <h3 class="box-title">Account Expense Types Listing</h3>
             	<div class="box-tools">
                     <a href="<?php echo site_url('acc_sales/add');?>" class="btn btn-success btn-sm">Add</a> 
 					
@@ -16,7 +16,7 @@
 					<thead>
 						<tr>
 							<th>Sr. No.</th>
-							<th>Sales Type</th>
+							<th>Name</th>
 							<th>Description</th>
 							<th>Actions</th>
 						</tr>
@@ -27,34 +27,16 @@
 							<th></th>
 						</tr>
 					</thead>
-                    <?php $i=1; foreach($sales as $s){ ?>
+                    <?php $i=1; foreach($expenseType as $et){ ?>
                     <tr>
 						<td><?php echo $i; ?></td>
+						<td><?php echo $et['name']; ?></td>
+						<td><?php echo $et['description']; ?></td>
 						
-						<td> 
-							<?php foreach($location as $l){
-										if($s['location_id']==$l['id']){
-											echo "<b>".$l['address']."</b><br>".$l['name'];
-										}
-									} ?>
-						</td>
-						
-					
-							<td><?php foreach($saleType as $st){
-								if($s['acc_salesType_id']== $st['id'])
-							echo $st['name'];} ?></td>
-						
-						
-						<td><?php echo $s['sale']; ?></td>
-
-						<td><?php $registered = date( 'm/d/Y', $s['date'] );
-								echo $registered; ?></td>
-						<td><?php echo $s['remark']; ?></td>
 						<td>
-						
-                            <a href="<?php echo site_url('Acc_sales/edit/'.$s['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
+                            <a href="<?php echo site_url('Acc_sales/edit/'.$et['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
                             <?php if($p_role['role_id']==1){?>
-								<a href="<?php echo site_url('Acc_sales/remove/'.$s['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+								<a href="<?php echo site_url('Acc_sales/remove/'.$et['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
 							<?php } ?>
 					   </td>
                     </tr>

@@ -4,11 +4,11 @@
  * www.crudigniter.com
  */
  
-class acc_master extends CI_Controller{
+class acc_master_expense_sub_types extends CI_Controller{
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Acc_salesType_model');
+        $this->load->model('Acc_expensesType_model');
     } 
 
     /*
@@ -34,22 +34,14 @@ class acc_master extends CI_Controller{
 			$this->data['pp'] = $specialPerm;
 			$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
 			
-			if($this->User_model->hasPermission('WILD_CARD',$id)){
-				$this->data['sales'] = $this->Acc_sales_model->get_all_acc_sales();
-			}
-			else{
-				$this->data['sales'] = $this->Acc_sales_model->get_location_acc_sales($user['location_id']);
-			}
 			
-			$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
-			$this->data['Type'] = $this->Type_model->get_all_Type();
-			
-			$this->data['location'] = $this->Location_model->get_all_location();
+			$this->data['expenseSubtype'] = $this->Acc_expensesType_model->get_all_expenseSubtype();
+			$this->data['expenseType'] = $this->Acc_expensesType_model->get_all_expenseType();
 			
 			
 			$this->template
 				->title('Welcome','My Aapp')
-				->build('acc_sales/index',$this->data);
+				->build('acc_master_expense_sub_types/index',$this->data);
 		}
 		else{
 			$this->template
