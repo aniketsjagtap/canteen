@@ -24,6 +24,7 @@ class Acc_expensesType_model extends CI_Model
      */
     function get_expenseSubtype($id)
     {
+		
         return $this->db->get_where('acc_expense_sub_types',array('id'=>$id))->row_array();
     }
         

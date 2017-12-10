@@ -14,11 +14,12 @@ class Acc_expensesItem_model extends CI_Model
     /*
      * Get expense by id
      */
-    function get_expense($id)
+    function get_expense_item($id)
     {
         return $this->db->get_where('acc_expense_items',array('id'=>$id))->row_array();
     }
-        
+	
+	        
     /*
      * Get all acc_expense_items
      */

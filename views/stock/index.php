@@ -88,7 +88,7 @@
 						<tr>
 							<th>Sr. No.</th>
 							<th>Location</th>
-							<th>RowMaterial</th>
+							<th>RawMaterial</th>
 							<th>Quantity</th>
 							<th>Unit</th>
 							<th>Rate(per unit)</th>

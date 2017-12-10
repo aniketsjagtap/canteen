@@ -221,9 +221,9 @@ $(document).ready(function(){
 </div>
  <div class="row no-print">
             <div class="col-xs-12">
-			<button class="btn btn-info pull-left" onclick="window.print();">
+			<!--<button class="btn btn-info pull-left" onclick="window.print();">
 					<i class="fa fa-print"></i> Print
-				</button>
+				</button>-->
              <!-- <a  class="btn btn-default"><i class="fa fa-print" ></i> Print</a>-->
             </div>
           </div>

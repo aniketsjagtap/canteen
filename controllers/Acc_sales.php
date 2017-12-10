@@ -10,11 +10,6 @@ class acc_sales extends CI_Controller{
         parent::__construct();
         $this->load->model('Acc_sales_model');
         $this->load->model('Acc_salesType_model');
-        $this->load->model('Rawmaterial_model');
-        $this->load->model('Product_rawmaterial_model');
-        $this->load->model('Product_model');
-        $this->load->model('Unit_model');
-        $this->load->model('Type_model');
         $this->load->model('Location_model');
     } 
 
@@ -49,7 +44,6 @@ class acc_sales extends CI_Controller{
 			}
 			
 			$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
-			$this->data['Type'] = $this->Type_model->get_all_Type();
 			
 			$this->data['location'] = $this->Location_model->get_all_location();
 			
@@ -121,10 +115,6 @@ class acc_sales extends CI_Controller{
 				$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
 				$this->data['location'] = $this->Location_model->get_all_location();
 				
-				
-				$this->data['product'] = $this->Product_model->get_all_product();
-				$this->data['unit'] = $this->Unit_model->get_all_units();
-				
 				$this->template
 					->title('Welcome','My Aapp')
 					->build('acc_sales/add',$this->data);
@@ -186,8 +176,6 @@ class acc_sales extends CI_Controller{
 					
 					$this->data['pp'] = $specialPerm;
 					$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-					$this->data['product'] = $this->Product_model->get_all_product();
-					$this->data['unit'] = $this->Unit_model->get_all_units();
 					$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
 					
 					
