@@ -29,7 +29,7 @@ class Acc_report extends CI_Controller{
     {
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
-			if(!($this->User_model->hasPermission('read',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('read',$id)&&($this->User_model->hasPermission('accounts',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
@@ -78,7 +78,7 @@ class Acc_report extends CI_Controller{
 			$user = $this->User_model->get('person_id', $id);
 				unset($user['password']);
 			
-			if(!($this->User_model->hasPermission('read',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('read',$id)&&($this->User_model->hasPermission('accounts',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
@@ -256,7 +256,7 @@ class Acc_report extends CI_Controller{
 			$user = $this->User_model->get('person_id', $id);
 				unset($user['password']);
 			
-			if(!($this->User_model->hasPermission('add',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('add',$id)&&($this->User_model->hasPermission('accounts',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
@@ -325,7 +325,7 @@ class Acc_report extends CI_Controller{
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
 			
-			if(!($this->User_model->hasPermission('update',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('update',$id)&&($this->User_model->hasPermission('accounts',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
@@ -395,7 +395,7 @@ class Acc_report extends CI_Controller{
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
 			
-			if(!($this->User_model->hasPermission('delete',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('delete',$id)&&($this->User_model->hasPermission('accounts',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
