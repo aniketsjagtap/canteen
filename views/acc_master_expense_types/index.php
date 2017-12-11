@@ -4,7 +4,7 @@
             <div class="box-header">
                 <h3 class="box-title">Account Expense Types Listing</h3>
             	<div class="box-tools">
-                    <a href="<?php echo site_url('acc_sales/add');?>" class="btn btn-success btn-sm">Add</a> 
+                    <a href="<?php echo site_url('Acc_master_expense_types/add');?>" class="btn btn-success btn-sm">Add</a> 
 					
                 </div>
             </div>
@@ -34,9 +34,9 @@
 						<td><?php echo $et['description']; ?></td>
 						
 						<td>
-                            <a href="<?php echo site_url('Acc_sales/edit/'.$et['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
+                            <a href="<?php echo site_url('Acc_master_expense_types/edit/'.$et['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
                             <?php if($p_role['role_id']==1){?>
-								<a href="<?php echo site_url('Acc_sales/remove/'.$et['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+								<a href="<?php echo site_url('Acc_master_expense_types/remove/'.$et['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
 							<?php } ?>
 					   </td>
                     </tr>

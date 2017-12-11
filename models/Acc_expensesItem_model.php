@@ -41,20 +41,17 @@ class Acc_expensesItem_model extends CI_Model
     /*
      * function to add new expense
      */
-    function add_expense($params)
+    function add_expense_items($params)
     {
 		//print_r($params);
 		for($i=0;$i<sizeof($params['acc_expense_sub_type_id']);$i++){
 			
+			$tmp['name'] = $params['name'][$i];
+			$tmp['description'] = $params['description'][$i];
 			$tmp['acc_expense_sub_type_id'] = $params['acc_expense_sub_type_id'][$i];
-			$tmp['acc_expense_item_id'] = $params['acc_expense_item_id'][$i];
-			$tmp['date'] = $params['date'];
-			$tmp['expense'] = $params['expense'][$i];
-			$tmp['remark'] = $params['remark'][$i];
 			$this->db->insert('acc_expense_items',$tmp);
 			$this->db->insert_id();
-			// echo "<br>**************<br>";
-			  print_r($tmp);
+			
 		}
 		return true;
         // $this->db->insert('acc_expense_items',$params);
@@ -64,7 +61,7 @@ class Acc_expensesItem_model extends CI_Model
     /*
      * function to update expense
      */
-    function update_expense($id,$params)
+    function update_expense_item($id,$params)
     {
         $this->db->where('id',$id);
         return $this->db->update('acc_expense_items',$params);
@@ -73,7 +70,7 @@ class Acc_expensesItem_model extends CI_Model
     /*
      * function to delete expense
      */
-    function delete_expense($id)
+    function delete_expense_item($id)
     {
         return $this->db->delete('acc_expense_items',array('id'=>$id));
     }

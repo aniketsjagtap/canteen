@@ -13,13 +13,13 @@ class acc_master_expense_items extends CI_Controller{
     } 
 
     /*
-     * Listing of sales
+     * Listing of items
      */
     function index()
     {
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
-			if(!($this->User_model->hasPermission('read',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('read',$id)&&($this->User_model->hasPermission('items',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
@@ -55,7 +55,7 @@ class acc_master_expense_items extends CI_Controller{
     }
 
     /*
-     * Adding a new sale
+     * Adding a new item
      */
     function add()
     {   
@@ -64,34 +64,23 @@ class acc_master_expense_items extends CI_Controller{
 			$user = $this->User_model->get('person_id', $id);
 				unset($user['password']);
 			
-			if(!($this->User_model->hasPermission('add',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('add',$id)&&($this->User_model->hasPermission('items',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
 			
-				// $this->form_validation->set_rules('location_id', '<b>Location</b>', 'trim|required');
-				// $this->form_validation->set_rules('amount', '<b>Amount</b>','trim|required|integer|min_length[1]|max_length[4]');
-				$this->form_validation->set_rules('dtp_input2', '<b>Date</b>', 'trim|required');
 				
-			if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
+				
+			if(isset($_POST) && count($_POST) > 0)     
 			{     
-				list($part1,$part2) = explode(' ', date("Y-m-d H:i:s",strtotime($this->input->post('dtp_input2'))));
-				list($year, $month, $day) = explode('-', $part1);
-				list($hours, $minutes,$seconds) = explode(':', $part2);
-				$timeto =  mktime($hours, $minutes, $seconds, $month, $day, $year);
-				//echo $timeto;
+				
 				$params = array(
-					'location_id' => $this->input->post('location_id'),
-					'acc_salesType_id' => $this->input->post('salesType_id'),
-					'sale' => $this->input->post('amount'),
-					'date' => $timeto,
-					'remark' => $this->input->post('remark'),
+					'name' => $this->input->post('expenseItem'),
+					'acc_expense_sub_type_id' => $this->input->post('expenseSubtype_id'),
+					'description' => $this->input->post('expenseDescription'),
 					);
-				// $release_date=$_POST['dtp_input2'];
-				//echo date("Y-m-d H:i:s",strtotime($release_date));
-				// print_r($params);
-				$sale_id = $this->Acc_sales_model->add_sale($params);
-				redirect('acc_sales/index');
+				$this->Acc_expensesItem_model->add_expense_items($params);
+				redirect('acc_master_expense_items/index');
 			}else{
 				
 				$user_role = $this->User_model->loadRoles($user['person_id']);
@@ -103,17 +92,12 @@ class acc_master_expense_items extends CI_Controller{
 				
 				$this->data['pp'] = $specialPerm;
 				$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-				$this->data['sales'] = $this->Acc_sales_model->get_all_acc_sales();
-				$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
-				$this->data['location'] = $this->Location_model->get_all_location();
+				$this->data['expenseSubtype'] = $this->Acc_expensesType_model->get_all_expenseSubtype();
 				
-				
-				$this->data['product'] = $this->Product_model->get_all_product();
-				$this->data['unit'] = $this->Unit_model->get_all_units();
 				
 				$this->template
 					->title('Welcome','My Aapp')
-					->build('acc_sales/add',$this->data);
+					->build('acc_master_expense_items/add',$this->data);
 			}
 		}
 		else{
@@ -127,37 +111,38 @@ class acc_master_expense_items extends CI_Controller{
     }  
 
     /*
-     * Editing a sale
+     * Editing a item
      */
-    function edit($sales_id)
+    function edit($item_id)
     {   
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
 			
-			if(!($this->User_model->hasPermission('update',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('update',$id)&&($this->User_model->hasPermission('items',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
-			// check if the sale exists before trying to edit it
-			$this->data['sale'] = $this->Acc_sales_model->get_sale($sales_id);
-			$this->data['location'] = $this->Location_model->get_all_location();
+			// check if the item exists before trying to edit it
+			$this->data['expenseItem'] = $this->Acc_expensesItem_model->get_expense_item($item_id);
 			
-			if(isset($this->data['sale']['id']))
+			if(isset($this->data['expenseItem']['id']))
 			{
 				
-				$this->form_validation->set_rules('amount', '<b>Amount</b>', 'trim|required|integer|min_length[1]|max_length[10]');
+				$this->form_validation->set_rules('expenseItem', '<b>Name</b>', 'trim|required|min_length[1]|max_length[10]');
+				$this->form_validation->set_rules('expenseSubtype_id', '<b>Expense Subtype</b>', 'trim|required|integer|min_length[1]|max_length[10]');
+				$this->form_validation->set_rules('expenseDescription', '<b>Description</b>', 'trim|min_length[0]|max_length[10]');
 					
 				if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
 				{      
 					$params = array(
 						
-						'acc_salesType_id' => $this->input->post('salesType_id'),
-						'sale' => $this->input->post('amount'),
-						'remark' => $this->input->post('remark'),
+						'name' => $this->input->post('expenseItem'),
+						'acc_expense_sub_type_id' => $this->input->post('expenseSubtype_id'),
+						'description' => $this->input->post('expenseDescription'),
 					);
 					
-					$this->Acc_sales_model->update_sale($sales_id,$params);            
-					redirect('acc_sales/index');
+					$this->Acc_expensesItem_model->update_expense_item($item_id,$params);            
+					redirect('acc_master_expense_items/index');
 				}
 				else
 				{
@@ -172,18 +157,16 @@ class acc_master_expense_items extends CI_Controller{
 					
 					$this->data['pp'] = $specialPerm;
 					$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-					$this->data['product'] = $this->Product_model->get_all_product();
-					$this->data['unit'] = $this->Unit_model->get_all_units();
-					$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
+					$this->data['expenseSubtype'] = $this->Acc_expensesType_model->get_all_expenseSubtype();
 					
 					
 					$this->template
 						->title('Welcome','My Aapp')
-						->build('acc_sales/edit',$this->data);
+						->build('acc_master_expense_items/edit',$this->data);
 				}
 			}
 			else
-				show_error('The sale you are trying to edit does not exist.');
+				show_error('The item you are trying to edit does not exist.');
 		}
 		else{
 			$this->template
@@ -194,27 +177,27 @@ class acc_master_expense_items extends CI_Controller{
     } 
 
     /*
-     * Deleting sale
+     * Deleting item
      */
-    function remove($sales_id)
+    function remove($item_id)
     {
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
 			
-			if(!($this->User_model->hasPermission('delete',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+			if(!($this->User_model->hasPermission('delete',$id)&&($this->User_model->hasPermission('items',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
-			$sale = $this->Acc_sales_model->get_sale($sales_id);
+			$item = $this->Acc_expensesItem_model->get_expense_item($item_id);
 
-			// check if the sale exists before trying to delete it
-			if(isset($sale['id']))
+			// check if the item exists before trying to delete it
+			if(isset($item['id']))
 			{
-				$this->Acc_sales_model->delete_sale($sales_id);
-				redirect('acc_sales/index');
+				$this->Acc_expensesItem_model->delete_expense_item($item_id);
+				redirect('acc_master_expense_items/index');
 			}
 			else
-				show_error('The sale you are trying to delete does not exist.');
+				show_error('The item you are trying to delete does not exist.');
 		}
 		else{
 			$this->template

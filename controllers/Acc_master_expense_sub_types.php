@@ -68,28 +68,16 @@ class acc_master_expense_sub_types extends CI_Controller{
 				return false;
 			}
 			
-				// $this->form_validation->set_rules('location_id', '<b>Location</b>', 'trim|required');
-				// $this->form_validation->set_rules('amount', '<b>Amount</b>','trim|required|integer|min_length[1]|max_length[4]');
-				$this->form_validation->set_rules('dtp_input2', '<b>Date</b>', 'trim|required');
+				//$this->form_validation->set_rules('ExpenseType_id', '<b>Expense Type</b>', 'trim|required');
 				
-			if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
+			if(isset($_POST) && count($_POST) > 0)     
 			{     
-				list($part1,$part2) = explode(' ', date("Y-m-d H:i:s",strtotime($this->input->post('dtp_input2'))));
-				list($year, $month, $day) = explode('-', $part1);
-				list($hours, $minutes,$seconds) = explode(':', $part2);
-				$timeto =  mktime($hours, $minutes, $seconds, $month, $day, $year);
-				//echo $timeto;
 				$params = array(
-					'location_id' => $this->input->post('location_id'),
-					'acc_salesType_id' => $this->input->post('salesType_id'),
-					'sale' => $this->input->post('amount'),
-					'date' => $timeto,
-					'remark' => $this->input->post('remark'),
+					'acc_expense_type_id' => $this->input->post('ExpenseType_id'),
+					'name' => $this->input->post('ExpenseSubtype'),
+					'description' => $this->input->post('ExpenseDescription'),
 					);
-				// $release_date=$_POST['dtp_input2'];
-				//echo date("Y-m-d H:i:s",strtotime($release_date));
-				// print_r($params);
-				$sale_id = $this->Acc_sales_model->add_sale($params);
+				$subtype_id = $this->Acc_expensesType_model->add_expenseSubtype($params);
 				redirect('acc_sales/index');
 			}else{
 				
@@ -102,17 +90,12 @@ class acc_master_expense_sub_types extends CI_Controller{
 				
 				$this->data['pp'] = $specialPerm;
 				$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-				$this->data['sales'] = $this->Acc_sales_model->get_all_acc_sales();
-				$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
-				$this->data['location'] = $this->Location_model->get_all_location();
 				
-				
-				$this->data['product'] = $this->Product_model->get_all_product();
-				$this->data['unit'] = $this->Unit_model->get_all_units();
+				$this->data['expenseType'] = $this->Acc_expensesType_model->get_all_expenseType();
 				
 				$this->template
 					->title('Welcome','My Aapp')
-					->build('acc_sales/add',$this->data);
+					->build('acc_master_expense_sub_types/add',$this->data);
 			}
 		}
 		else{
@@ -128,7 +111,7 @@ class acc_master_expense_sub_types extends CI_Controller{
     /*
      * Editing a sale
      */
-    function edit($sales_id)
+    function edit($expenses_id)
     {   
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
@@ -137,26 +120,27 @@ class acc_master_expense_sub_types extends CI_Controller{
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
-			// check if the sale exists before trying to edit it
-			$this->data['sale'] = $this->Acc_sales_model->get_sale($sales_id);
-			$this->data['location'] = $this->Location_model->get_all_location();
+			// check if the ExpenseSubtype exists before trying to edit it
+			$this->data['expenseSubtype'] = $this->Acc_expensesType_model->get_expenseSubtype($expenses_id);
 			
-			if(isset($this->data['sale']['id']))
+			if(isset($this->data['expenseSubtype']['id']))
 			{
 				
-				$this->form_validation->set_rules('amount', '<b>Amount</b>', 'trim|required|integer|min_length[1]|max_length[10]');
+				$this->form_validation->set_rules('expenseSubtype', '<b>Expense Subtype</b>', 'trim|required|min_length[1]|max_length[100]');
+				$this->form_validation->set_rules('expenseType_id', '<b>Expense Type</b>', 'trim|required|integer|min_length[1]|max_length[400]');
+				$this->form_validation->set_rules('expenseDescription', '<b>Description</b>', 'trim|min_length[0]|max_length[400]');
 					
 				if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
 				{      
 					$params = array(
 						
-						'acc_salesType_id' => $this->input->post('salesType_id'),
-						'sale' => $this->input->post('amount'),
-						'remark' => $this->input->post('remark'),
+						'acc_expense_type_id' => $this->input->post('expenseType_id'),
+						'name' => $this->input->post('expenseSubtype'),
+						'description' => $this->input->post('expenseDescription'),
 					);
 					
-					$this->Acc_sales_model->update_sale($sales_id,$params);            
-					redirect('acc_sales/index');
+					$this->Acc_expensesType_model->update_expenseSubtype($expenses_id,$params);            
+					redirect('Acc_master_expense_sub_types/index');
 				}
 				else
 				{
@@ -171,14 +155,11 @@ class acc_master_expense_sub_types extends CI_Controller{
 					
 					$this->data['pp'] = $specialPerm;
 					$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-					$this->data['product'] = $this->Product_model->get_all_product();
-					$this->data['unit'] = $this->Unit_model->get_all_units();
-					$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
-					
-					
+					$this->data['expenseType'] = $this->Acc_expensesType_model->get_all_expenseType();
+				
 					$this->template
 						->title('Welcome','My Aapp')
-						->build('acc_sales/edit',$this->data);
+						->build('Acc_master_expense_sub_types/edit',$this->data);
 				}
 			}
 			else
@@ -195,7 +176,7 @@ class acc_master_expense_sub_types extends CI_Controller{
     /*
      * Deleting sale
      */
-    function remove($sales_id)
+    function remove($expenses_id)
     {
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
@@ -204,16 +185,16 @@ class acc_master_expense_sub_types extends CI_Controller{
 				show_error('You Don\'t have permission to perform this operation.');
 				return false;
 			}
-			$sale = $this->Acc_sales_model->get_sale($sales_id);
+			$expense = $this->Acc_expensesType_model->get_expenseSubtype($expenses_id);
 
-			// check if the sale exists before trying to delete it
-			if(isset($sale['id']))
+			// check if the expense exists before trying to delete it
+			if(isset($expense['id']))
 			{
-				$this->Acc_sales_model->delete_sale($sales_id);
-				redirect('acc_sales/index');
+				$this->Acc_expensesType_model->delete_expenseSubtype($expenses_id);
+				redirect('Acc_master_expense_sub_types/index');
 			}
 			else
-				show_error('The sale you are trying to delete does not exist.');
+				show_error('The expense you are trying to delete does not exist.');
 		}
 		else{
 			$this->template

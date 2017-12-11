@@ -42,7 +42,7 @@ class Acc_expensesType_model extends CI_Model
      */
     function get_all_expenseSubtype()
     {
-        $this->db->order_by('id', 'asc');
+        $this->db->order_by('acc_expense_type_id', 'asc');
         return $this->db->get('acc_expense_sub_types')->result_array();
     }
 	
@@ -52,9 +52,15 @@ class Acc_expensesType_model extends CI_Model
      */
     function add_expenseType($params)
     {
-		
-        $this->db->insert('acc_expense_types',$params);
-        return $this->db->insert_id();
+	
+		$len = sizeof($params['name']);
+		for($i=0;$i<$len;$i++){
+			$tmp['name'] = $params['name'][$i];
+			$tmp['description'] = $params['name'][$i];
+			$this->db->insert('acc_expense_types',$tmp);
+			$this->db->insert_id();
+		}
+		return true;
     }
 	
 	/*
@@ -62,9 +68,17 @@ class Acc_expensesType_model extends CI_Model
      */
     function add_expenseSubtype($params)
     {
+		$len = sizeof($params['acc_expense_type_id']);
+		for($i=0;$i<$len;$i++){
 		
-        $this->db->insert('acc_expense_sub_types',$params);
-        return $this->db->insert_id();
+			$tmp['acc_expense_type_id'] = $params['acc_expense_type_id'][$i];
+			$tmp['name'] = $params['name'][$i];
+			$tmp['description'] = $params['name'][$i];
+			$this->db->insert('acc_expense_sub_types',$tmp);
+			$ab = $this->db->insert_id();
+			
+		}
+		return true;
     }
     
     /*

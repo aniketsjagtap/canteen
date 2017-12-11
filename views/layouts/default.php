@@ -209,10 +209,12 @@ function searchTable(inputVal)
 .field_wrapper div{ margin-bottom:10px;}
 .formula_wrapper div,.messformula_wrapper div{ margin-bottom:10px;}
 .select_wrapper div{ margin-bottom:10px;}
-.sales_wrapper div,.expenses_wrapper div{ margin-bottom:10px;}
+.sales_wrapper div,.expenses_wrapper div,{ margin-bottom:10px;}
+.expense_wrapper div,.expenseType_wrapper div,.description_wrapper div{ margin-bottom:10px;}
+.expenseItem_wrapper div,.expenseSubtype_wrapper div,.expenseDescription_wrapper div{ margin-bottom:10px;}
 .quantity_wrapper div,.order_quantity_wrapper div{ margin-bottom:10px;}
 .amount_wrapper div,.order_quantity_wrapper div{ margin-bottom:10px;}
-.remark_wrapper div{ margin-bottom:10px;}
+.remark_wrapper div,.ExpenseSubtype_wrapper div{ margin-bottom:10px;}
 .unit_wrapper div{ margin-bottom:10px;}
 /*.add_button{ margin-top:10px; margin-left:10px;vertical-align: text-bottom;}
 .remove_button{ margin-top:10px; margin-left:10px;vertical-align: text-bottom;}*/
@@ -643,7 +645,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.4.5
+      <b>Version</b> 1.4.6
     </div>
    <small> Designed & Developed by: </small> <strong><a href="http://jagtechno.com" target="_blank">JagTechno</a></strong> 
   </footer>
