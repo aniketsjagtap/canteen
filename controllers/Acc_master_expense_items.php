@@ -128,8 +128,8 @@ class acc_master_expense_items extends CI_Controller{
 			if(isset($this->data['expenseItem']['id']))
 			{
 				
-				$this->form_validation->set_rules('expenseItem', '<b>Name</b>', 'trim|required|min_length[1]|max_length[10]');
-				$this->form_validation->set_rules('expenseSubtype_id', '<b>Expense Subtype</b>', 'trim|required|integer|min_length[1]|max_length[100]');
+				$this->form_validation->set_rules('expenseItem', '<b>Name</b>', 'trim|required|min_length[1]|max_length[100]');
+				$this->form_validation->set_rules('expenseSubtype_id', '<b>Expense Subtype</b>', 'trim|required|integer|min_length[1]|max_length[10]');
 				$this->form_validation->set_rules('expenseDescription', '<b>Description</b>', 'trim|min_length[0]|max_length[10]');
 					
 				if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
