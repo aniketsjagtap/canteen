@@ -53,7 +53,7 @@ class Acc_sales_model extends CI_Model
 			$this->db->insert('acc_sales',$tmp);
 			$this->db->insert_id();
 			// echo "<br>**************<br>";
-			  print_r($tmp);
+			 // print_r($tmp);
 		}
 		return true;
         // $this->db->insert('acc_sales',$params);
