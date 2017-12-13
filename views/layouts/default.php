@@ -209,7 +209,7 @@ function searchTable(inputVal)
 .field_wrapper div{ margin-bottom:10px;}
 .formula_wrapper div,.messformula_wrapper div{ margin-bottom:10px;}
 .select_wrapper div{ margin-bottom:10px;}
-.sales_wrapper div,.expenses_wrapper div,{ margin-bottom:10px;}
+.sales_wrapper div,.expenses_wrapper div,.expenses_wrapper div{ margin-bottom:10px;}
 .expense_wrapper div,.expenseType_wrapper div,.description_wrapper div{ margin-bottom:10px;}
 .expenseItem_wrapper div,.expenseSubtype_wrapper div,.expenseDescription_wrapper div{ margin-bottom:10px;}
 .quantity_wrapper div,.order_quantity_wrapper div{ margin-bottom:10px;}
