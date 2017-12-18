@@ -38,8 +38,12 @@
  <!-- <link href="<?=base_url('themes/plugins/bootstrap/css/bootstrap.min.css');?>" rel="stylesheet" media="screen">-->
   <link href="<?=base_url('themes/plugins/bootstrap/css/bootstrap-datetimepicker.min.css');?>" rel="stylesheet" media="screen">
 
-   <link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/css/dataTables.jqueryui.css');?>" rel="stylesheet" media="screen">
-   <link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/css/jquery-ui.css');?>" rel="stylesheet" media="screen">
+   <!--<link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/css/dataTables.jqueryui.css');?>" rel="stylesheet" media="screen">-->
+  <!-- <link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/css/jquery-ui.css');?>" rel="stylesheet" media="screen">-->
+  
+   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" media="screen">
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.jqueryui.min.css" rel="stylesheet" media="screen">
+   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.jqueryui.min.css" rel="stylesheet" media="screen">
    <link rel="stylesheet" href="<?=base_url('themes/plugins/datatables/buttons.dataTables.min.css');?>" rel="stylesheet" media="screen">
    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -50,11 +54,20 @@
   <![endif]-->
  
 <!-- jQuery 2.1.4 -->
-<script src="<?=base_url('themes/plugins/jQuery/jQuery-2.1.4.min.js');?>"></script>
+<!--<script src="<?=base_url('themes/plugins/jQuery/jQuery-2.1.4.min.js');?>"></script>-->
 <!-- jQuery UI 1.11.4 -->
-<script src="<?=base_url('themes/plugins/jQueryUI/jquery-ui.min.js');?>"></script>
+<!--<script src="<?=base_url('themes/plugins/jQueryUI/jquery-ui.min.js');?>"></script>-->
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
 <script src="<?=base_url('themes/plugins/datatables/jquery.dataTables.min.js');?>"></script>
 <script src="<?=base_url('themes/plugins/datatables/jquery.dataTables.columnFilter.js');?>"></script>
+
+
  <script>
  // $(document).ready(function()
 // {
@@ -645,7 +658,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right idden-xs">
-      <b>Version</b> 1.4.8
+      <b>Version</b> 1.5.0
     </div>
    <small> Designed & Developed by: </small> <strong><a href="http://jagtechno.com" target="_blank">JagTechno</a></strong> 
   </footer>

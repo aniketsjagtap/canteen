@@ -2,6 +2,7 @@
 $(document).ready(function(){
 /********************Sales Report Index*******************************/			
 	$("#sales_report").dataTable({	
+	responsive: true,
 	"dom": 'Bfrtip',
 			"lengthMenu": [
 							[ 5, 25, 50, -1 ],
@@ -51,6 +52,7 @@ $(document).ready(function(){
 		
 	/********************Expenses Report Index*******************************/			
 	$("#expenses_report").dataTable({	
+	responsive: true,
 	"dom": 'Bfrtip',
 			
 			"lengthMenu": [
@@ -101,6 +103,7 @@ $(document).ready(function(){
 		
 		/********************Stock Report Index*******************************/			
 	$("#stock_tbl").dataTable({	
+	responsive: true,
 	"dom": 'Bfrtip',
 			"lengthMenu": [
 							[ 5, 25, 50, -1 ],
@@ -178,7 +181,7 @@ $(document).ready(function(){
 				
 <!---------------         Sales Report                                    --------------------------->
 <h2>Sales Report</h2>
-                  <table  id="sales_report" class="table table-striped text-center table-bordered" >
+                  <table  id="sales_report" class="table table-striped text-center table-bordered " >
 				<!--<table class="table table-striped " id="example">-->
 					<thead>
 							<th>Sr. No.</th>

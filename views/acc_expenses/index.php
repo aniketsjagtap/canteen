@@ -1,8 +1,13 @@
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
 <script>
+
  $(document).ready(function(){
 		/*******************************expense Index***********************************************/
 		
 		$('#data_tbl1').dataTable({	
+		responsive: true,
 		"lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		"sPaginationType": "full_numbers",
 		"footerCallback": function ( row, data, start, end, display ) {
@@ -94,7 +99,7 @@
                  <!--<input type="text"  id="search" placeholder="Enter keyword here..." title="Type in a name"/>-->
 				<!--Start Date: <input type="text" id="dateStart" name="dateStart" size="30">
 				End Date: <input type="text" id="dateend" name="dateend" size="30">-->
-                <table  id="data_tbl1" class="table table-striped text-center table-bordered">
+                <table  id="data_tbl1" class="table table-striped text-center table-bordered display nowrap" width="100%" cellspacing="0">
 					<thead>
 						<tr>
 							<th>Sr. No.</th>
