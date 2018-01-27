@@ -100,6 +100,7 @@ class Acc_report extends CI_Controller{
 			
 			$this->data['location'] = $this->Location_model->get_all_location();
 			
+			
 				$this->form_validation->set_rules('dtp_input1', '<b>Opening Stock Date</b>', 'trim|required');
 				$this->form_validation->set_rules('dtp_input2', '<b>Closing Stock Date</b>', 'trim|required');
 				$this->form_validation->set_rules('location_id', '<b>Location</b>', 'trim|required|integer');
@@ -116,6 +117,8 @@ class Acc_report extends CI_Controller{
 				list($hours, $minutes,$seconds) = explode(':', $part4);
 				$closing =  mktime($hours, $minutes, $seconds, $month, $day, $year);
 				
+				
+
 				$params = array(
 					'location_id' => $this->input->post('location_id'),
 					'opening_date' => $opening,
@@ -123,6 +126,17 @@ class Acc_report extends CI_Controller{
 				);
 				
 				$this->data['sales_report'] = $this->Acc_report_model->get_acc_sales_report($params);
+				$array = $this->data['sales_report'];
+					$result = array();
+					foreach ($array as $val) {
+						if (!isset($result[$val['acc_salesType_id']]))
+							$result[$val['acc_salesType_id']] = $val;
+						else
+							$result[$val['acc_salesType_id']]['sale'] += $val['sale'];
+							
+					}
+					$this->data['sales_report'] = array_values($result);
+
 				
 				$this->data['expense_report'] = $this->Acc_report_model->get_acc_expense_report($params);
 				for($i=0;$i<sizeof($this->data['expense_report']);$i++)
@@ -139,57 +153,32 @@ class Acc_report extends CI_Controller{
 					$tmp = $this->Acc_expensesType_model->get_expenseType($this->data['expense_report'][$i]['expense_type_id']);
 					$this->data['expense_report'][$i]['expense_type_name'] = $tmp['name'];
 				}
-				// echo"<pre>";
-					// print_r($this->data['expense_report']);
-					// echo"</pre>";
-				// return true;
-				$close = strtotime('+1 day', $opening);
-				$opening_params = array(
-					'location_id' => $this->input->post('location_id'),
-					'opening_date' => $opening,
-					'closing_date' => $close,
-				);
-				$this->data['opening'] = $this->Acc_report_model->get_stock_report($opening_params);
-				$array = $this->data['opening'];
-					$result = array();
-					foreach ($array as $val) {
-						if (!isset($result[$val['rawMaterial_id']]))
-							$result[$val['rawMaterial_id']] = $val;
-						else
-							$result[$val['rawMaterial_id']]['quantity'] += $val['quantity'];
-							
-					}
-					$this->data['opening'] = array_values($result);
-				
-				
-				
-				$open = strtotime('+1 day', $closing);
-				$closing_params = array(
-					'location_id' => $this->input->post('location_id'),
-					'opening_date' => $closing,
-					'closing_date' => $open,
-				);
-				
-				$this->data['closing'] = $this->Acc_report_model->get_stock_report($closing_params);
-				
-				$array = $this->data['closing'];
-					$result = array();
-					foreach ($array as $val) {
-							//print_r( $val );
-						if (!isset($result[$val['rawMaterial_id']]))
-							$result[$val['rawMaterial_id']] = $val;
-						else
-							$result[$val['rawMaterial_id']]['quantity'] += $val['quantity'];
-							
-					}
-					$this->data['closing'] = array_values($result);
-					
-					
-				
+			
 	/************************************** Stock Calculation *****************************************************/
-				$this->data['loc_id'] = $this->input->post('location_id');
 				$this->data['open_date'] = $opening;
 				$this->data['close_date'] = $closing;
+
+				$arr = $this->data['location'];
+				foreach($arr as $key => $val){
+					
+					if(($val['id']) === ($this->input->post('location_id'))){
+						$arr[$key]['id'] = $val['id'];
+						$arr[$key]['address'] = $val['address'];
+						$arr[$key]['name'] = $val['name'];
+						
+					}
+					else{
+						unset($arr[$key]);
+					}
+				}
+				
+				$this->data['location'] = array_values($arr);
+				if(sizeof($this->data['location'])>0){
+					$this->data['location'] = $this->data['location'][0];
+				}
+				else{
+					$this->data['location'] = NULL;
+				}
 				
 					$array = $this->data['expense_report'];
 					$result = array();
@@ -204,31 +193,110 @@ class Acc_report extends CI_Controller{
 					$this->data['expense_report'] = array_values($result);
 					
 					
+					/************************Opening Stock Calculation*******************************/
+					$this->data['open_date'] = $opening;
+					$this->data['close_date'] = $closing;
+					
+					$close = strtotime('+1 day', $opening);
 					$params = array(
 						'location_id' => $this->input->post('location_id'),
 						'opening_date' => $opening,
-						'closing_date' => $closing,
+						'closing_date' => $close,
 						);
-					$this->data['stock'] = $this->Stock_model->get_location_stock($params);
+					$this->data['openingStock'] = $this->Stock_model->get_location_stock($params);
 				
-				$this->data['open_date'] = $opening;
-				$this->data['close_date'] = $closing;
-				$this->data['location'] = $this->Location_model->get_all_location();
-				$this->data['rawMaterial'] = $this->Rawmaterial_model->get_all_rawMaterial();
-				$this->data['unit'] = $this->Unit_model->get_all_units();
-				
-				for($i=0;$i<sizeof($this->data['stock']);$i++)
+				$rawMaterialPrice = NULL;
+				for($i=0;$i<sizeof($this->data['openingStock']);$i++)
 				{
 					$params = array(
-						'rawMaterial_id' => $this->data['stock'][$i]['rawMaterial_id'],
+						'rawMaterial_id' => $this->data['openingStock'][$i]['rawMaterial_id'],
 						'opening_date' => $opening,
 						'closing_date' => $closing,
 						);
-					$this->data['rawMaterialRate'][$i] = $this->Stock_model->get_rate_rawMaterial($params);
+					$rawMaterialPrice[$i] = $this->Stock_model->get_rate_rawMaterial($params);
+					$this->data['openingStock'][$i]['rate'] = $rawMaterialPrice[$i]['price'];
+					$this->data['openingStock'][$i]['price'] = round($rawMaterialPrice[$i]['price']*$this->data['openingStock'][$i]['quantity'],2);
 					$params = null;
 					
 				}
+
+				$array = $this->data['openingStock'];
+					$result = array();
+					foreach ($array as $val) {
+							//print_r( $val );
+						if (!isset($result[$val['date']]))
+							$result[$val['date']] = $val;
+						else
+							$result[$val['date']]['price'] += $val['price'];
+							
+					}
+					$this->data['openingStock'] = array_values($result);
+					// unset($this->data['openingStock'][0]['id']);
+					// unset($this->data['openingStock'][0]['location_id']);
+					// unset($this->data['openingStock'][0]['rawMaterial_id']);
+					// unset($this->data['openingStock'][0]['quantity']);
+					// unset($this->data['openingStock'][0]['unit_id']);
+					// unset($this->data['openingStock'][0]['rate']);
+					// unset($this->data['openingStock'][0]['date']);
+					// foreach($this->data['openingStock'] as $key => $val)
+					// {
+					// 	$this->data['openingStock'] = $this->data['openingStock'][$key];
+					// }
+
+					if(sizeof($this->data['openingStock'])>0){
+						$this->data['openingStock'] = $this->data['openingStock'][0]['price'];
+					}
+					else{
+						$this->data['openingStock'] = NULL;
+					}
+					
+			/************************Closing Stock Calculation*******************************/
+				$close = strtotime('+1 day', $closing);
+				$params = array(
+					'location_id' => $this->input->post('location_id'),
+					'opening_date' => $closing,
+					'closing_date' => $close,
+					);
+				$this->data['closingStock'] = $this->Stock_model->get_location_stock($params);
+			
+			$rawMaterialPrice = NULL;
+			
+			for($i=0;$i<sizeof($this->data['closingStock']);$i++)
+			{
+				$params = array(
+					'rawMaterial_id' => $this->data['closingStock'][$i]['rawMaterial_id'],
+					'opening_date' => $opening,
+					'closing_date' => $closing,
+					);
+					$rawMaterialPrice[$i][$i] = $this->Stock_model->get_rate_rawMaterial($params);
 				
+				$this->data['closingStock'][$i]['price'] = round($rawMaterialPrice[$i][$i]['price']*$this->data['closingStock'][$i]['quantity'],2);
+			
+				$params = null;
+				
+			}
+			$array = $this->data['closingStock'];
+					$result = array();
+					foreach ($array as $val) {
+							//print_r( $val );
+						if (!isset($result[$val['date']]))
+							$result[$val['date']] = $val;
+						else
+							$result[$val['date']]['price'] += $val['price'];
+							
+					}
+					$this->data['closingStock'] = array_values($result);
+					if(sizeof($this->data['closingStock'])>0){
+						$this->data['closingStock'] = $this->data['closingStock'][0]['price'];
+					}
+					else{
+						$this->data['closingStock'] = NULL;
+					}
+				
+				// echo"<pre>";
+				// print_r($this->data);
+				// echo"</pre>";
+				// return true;
 				$this->template
 						->title('Welcome','My Aapp')
 						->build('acc_report/index',$this->data);
