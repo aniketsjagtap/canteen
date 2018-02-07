@@ -40,31 +40,11 @@ class Sale extends CI_Controller{
 			
 			$this->data['pp'] = $specialPerm;
 			$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-			if($this->User_model->hasPermission('WILD_CARD',$id)){
-				$this->data['sales'] = $this->Sale_model->get_all_sales();
-			}
-			else{
-				$this->data['sales'] = $this->Sale_model->get_location_sales($user['location_id']);
-			}
-			
-			$this->data['saleType'] = $this->SaleType_model->get_all_saleType();
-			$this->data['Type'] = $this->Type_model->get_all_Type();
 			
 			$this->data['location'] = $this->Location_model->get_all_location();
-			$this->data['product'] = $this->Product_model->get_all_product();
-			
-			
-			$this->data['unit'] = $this->Unit_model->get_all_units();
-			
-			for($i=0;$i<sizeof($this->data['sales']);$i++)
-			{
-				$this->data['rawMaterial'][$i] = $this->Product_rawmaterial_model->get_product_first_rawMaterial($this->data['sales'][$i]['product_id']);
-				$this->data['rawMaterialType'][$i] = $this->Rawmaterial_model->get_rawmaterial($this->data['rawMaterial'][$i]['rawMaterial_id']);
-				$this->data['sales'][$i]['rawMaterialType'] = $this->data['rawMaterialType'][$i]['type_id'];
-			}
 			$this->template
 				->title('Welcome','My Aapp')
-				->build('sale/index',$this->data);
+				->build('sale/getData',$this->data);
 		}
 		else{
 			$this->template
@@ -75,6 +55,87 @@ class Sale extends CI_Controller{
         
         
     }
+	
+	function getData()
+	{
+		if ($this->auth->loggedin()) {
+			$id = $this->auth->userid();
+			if(!($this->User_model->hasPermission('read',$id)&&($this->User_model->hasPermission('sales',$id)||$this->User_model->hasPermission('WILD_CARD',$id)))){
+				show_error('You Don\'t have permission to perform this operation.');
+				return false;
+			}
+			$user = $this->User_model->get('person_id', $id);
+			unset($user['password']);
+			$user_role = $this->User_model->loadRoles($user['person_id']);
+			
+			$this->data['user'] = $user['username'];
+			$this->data['urole'] = $user_role;
+			$specialPerm =  $this->User_model->loadSpecialPermission($id);
+					
+			
+			$this->data['pp'] = $specialPerm;
+			$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
+			$this->data['location'] = $this->Location_model->get_all_location();
+			
+			
+			$this->form_validation->set_rules('dtp_input1', '<b>Start Date</b>', 'trim|required');
+				$this->form_validation->set_rules('dtp_input2', '<b>End Date</b>', 'trim|required');
+				$this->form_validation->set_rules('location_id', '<b>Location</b>', 'trim|required|integer');
+			if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
+			{         
+				list($part1,$part2) = explode(' ', date("Y-m-d H:i:s",strtotime($this->input->post('dtp_input1'))));
+				list($year, $month, $day) = explode('-', $part1);
+				list($hours, $minutes,$seconds) = explode(':', $part2);
+				$opening =  mktime($hours, $minutes, $seconds, $month, $day, $year); 
+				
+				list($part3,$part4) = explode(' ', date("Y-m-d H:i:s",strtotime($this->input->post('dtp_input2'))));
+				list($year, $month, $day) = explode('-', $part3);
+				list($hours, $minutes,$seconds) = explode(':', $part4);
+				$closing =  mktime($hours, $minutes, $seconds, $month, $day, $year);
+				
+				$params = array(
+					'location_id' => $this->input->post('location_id'),
+					'opening_date' => $opening,
+					'closing_date' => $closing,
+				);
+				
+				$this->data['sales'] = $this->Sale_model->get_location_sales($params);
+				$this->data['loc'] = $this->input->post('location_id');
+		
+			
+				
+				$this->data['saleType'] = $this->SaleType_model->get_all_saleType();
+				$this->data['Type'] = $this->Type_model->get_all_Type();
+				
+				
+				$this->data['product'] = $this->Product_model->get_all_product();
+				
+				
+				$this->data['unit'] = $this->Unit_model->get_all_units();
+				
+				for($i=0;$i<sizeof($this->data['sales']);$i++)
+				{
+					$this->data['rawMaterial'][$i] = $this->Product_rawmaterial_model->get_product_first_rawMaterial($this->data['sales'][$i]['product_id']);
+					$this->data['rawMaterialType'][$i] = $this->Rawmaterial_model->get_rawmaterial($this->data['rawMaterial'][$i]['rawMaterial_id']);
+					$this->data['sales'][$i]['rawMaterialType'] = $this->data['rawMaterialType'][$i]['type_id'];
+				}
+				$this->template
+					->title('Welcome','My Aapp')
+					->build('sale/index',$this->data);
+			}else{
+				$this->template
+					->title('Welcome','My Aapp')
+					->build('sale/getData',$this->data);
+			}
+		}
+		else{
+			$this->template
+					->title('Login Admin','Login Page')
+					->set_layout('access')
+					->build('access/login');
+		}
+        
+	}
 
     /*
      * Adding a new sale

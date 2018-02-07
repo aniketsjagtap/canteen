@@ -31,10 +31,12 @@ class Sale_model extends CI_Model
 	/*
      * Get all sales
      */
-    function get_location_sales($location_id)
+    function get_location_sales($params)
     {
-        $this->db->order_by('date', 'asc');
-        return $this->db->get_where('sales',array('location_id'=>$location_id))->result_array();
+        // $this->db->order_by('date', 'asc');
+        // return $this->db->get_where('sales',array('location_id'=>$location_id))->result_array();
+		$this->db->where('(date >= "'. $params['opening_date'] . '" and date <= "'. $params['closing_date'] .'" )and location_id='. $params['location_id']);
+		return $this->db->get('sales')->result_array();
     }
         
     /*

@@ -13,12 +13,12 @@
 				};
 	 
 				// total_salary over all pages
-				total_salary = api.column( 8 ).data().reduce( function (a, b) {
+				total_salary = api.column( 7 ).data().reduce( function (a, b) {
 					return intVal(a) + intVal(b);
 				},0 );
 				
 				// total_page_salary over this page
-				total_page_salary = api.column( 8, { page: 'current'} ).data().reduce( function (a, b) {
+				total_page_salary = api.column( 7, { page: 'current'} ).data().reduce( function (a, b) {
 					return intVal(a) + intVal(b);
 				}, 0 );
 				
@@ -33,7 +33,7 @@
 			aoColumns: [ null,	
 			
 					{ type: "text" },
-					{ type: "text" },
+					//{ type: "text" },
 					
 					{ type: "text" },
 					{ type: "text" },
@@ -76,7 +76,7 @@
 			$('#min').on( 'change', function () {
 				//alert(this.value);
 				table
-					.columns( 10 )
+					.columns( 9 )
 					.search( this.value )
 					.draw();
 			} );
@@ -87,7 +87,13 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Sales Report</h3>
+                <b class="box-title"> Sales Report </b>
+				<h4><?php  foreach($location as $l)
+												if($l['id']==$loc){
+													echo $l['name'].',<br>'.$l['address'];
+													
+												} ?>
+				</h4>
             	<div class="box-tools">
                     <a href="<?php echo site_url('sale/add');?>" class="btn btn-success btn-sm">Add</a> 
 					
@@ -102,7 +108,7 @@
 						<tr>
 							<th>Sr. No.</th>
 							
-							<th>Location</th>
+							<!--<th>Location</th>-->
 							
 							<th>Product</th>
 							<th>Raw Material Type</th>
@@ -118,7 +124,7 @@
 						<tr>
 							<th></th>
 							
-							<th></th>
+							<!--<th></th>-->
 							<th></th>
 							
 							<th></th>
@@ -136,13 +142,13 @@
                     <tr>
 						<td><?php echo $i; ?></td>
 						
-						<td> 
-							<?php foreach($location as $l){
+						<!--<td> 
+							<?php /* foreach($location as $l){
 										if($s['location_id']==$l['id']){
 											echo "<b>".$l['address']."</b><br>".$l['name'];
 										}
-									} ?>
-						</td>
+									} */?>
+						</td>-->
 						
 						<td><?php foreach($product as $p){
 								if($s['product_id']== $p['id'])
@@ -177,9 +183,9 @@
                 </table>
                 <div class="row no-print">
 					<div class="col-xs-12">
-					<button class="btn btn-info pull-left" onclick="window.print();">
+					<!--<button class="btn btn-info pull-left" onclick="window.print();">
 							<i class="fa fa-print"></i> print
-						</button>
+						</button>-->
 					 <!-- <a  class="btn btn-default"><i class="fa fa-print" ></i> Print</a>-->
 					</div>
 				  </div>           
