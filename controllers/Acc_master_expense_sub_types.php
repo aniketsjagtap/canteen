@@ -112,9 +112,7 @@ class acc_master_expense_sub_types extends CI_Controller{
      * Editing a sale
      */
     function edit($expenses_id)
-    {   var_dump($expense_id);
-	
-	return true;
+    {   
 		if ($this->auth->loggedin()) {
 			$id = $this->auth->userid();
 			
