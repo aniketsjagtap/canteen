@@ -140,7 +140,7 @@ class acc_master_expense_sub_types extends CI_Controller{
 					);
 					
 					$this->Acc_expensesType_model->update_expenseSubtype($expenses_id,$params);            
-					redirect('Acc_master_expense_sub_types/index');
+					redirect('acc_master_expense_sub_types/index');
 				}
 				else
 				{
@@ -159,7 +159,7 @@ class acc_master_expense_sub_types extends CI_Controller{
 				
 					$this->template
 						->title('Welcome','My Aapp')
-						->build('Acc_master_expense_sub_types/edit',$this->data);
+						->build('acc_master_expense_sub_types/edit',$this->data);
 				}
 			}
 			else
@@ -191,7 +191,7 @@ class acc_master_expense_sub_types extends CI_Controller{
 			if(isset($expense['id']))
 			{
 				$this->Acc_expensesType_model->delete_expenseSubtype($expenses_id);
-				redirect('Acc_master_expense_sub_types/index');
+				redirect('acc_master_expense_sub_types/index');
 			}
 			else
 				show_error('The expense you are trying to delete does not exist.');
