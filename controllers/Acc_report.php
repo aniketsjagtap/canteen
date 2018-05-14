@@ -214,11 +214,19 @@ class Acc_report extends CI_Controller{
 						'closing_date' => $closing,
 						);
 					$rawMaterialPrice[$i] = $this->Stock_model->get_rate_rawMaterial($params);
-					$this->data['openingStock'][$i]['rate'] = $rawMaterialPrice[$i]['price'];
-					$this->data['openingStock'][$i]['price'] = round($rawMaterialPrice[$i]['price']*$this->data['openingStock'][$i]['quantity'],2);
+					
+					
+					$this->data['openingStock'][$i]['rate'] = ($rawMaterialPrice[$i]['price']/$this->data['openingStock'][$i]['quantity']);
+					$this->data['openingStock'][$i]['price'] = round($this->data['openingStock'][$i]['rate']*$this->data['openingStock'][$i]['quantity'],2);
 					$params = null;
 					
+					// echo"<pre>";
+					// print_r($this->data['openingStock'][$i]);
+					// echo"</pre>";
+					
 				}
+				
+				// return true;
 
 				$array = $this->data['openingStock'];
 					$result = array();
@@ -270,11 +278,19 @@ class Acc_report extends CI_Controller{
 					);
 					$rawMaterialPrice[$i][$i] = $this->Stock_model->get_rate_rawMaterial($params);
 				
-				$this->data['closingStock'][$i]['price'] = round($rawMaterialPrice[$i][$i]['price']*$this->data['closingStock'][$i]['quantity'],2);
+				$this->data['closingStock'][$i]['rate'] = ($rawMaterialPrice[$i][$i]['price']/$this->data['closingStock'][$i]['quantity']);
+				$this->data['closingStock'][$i]['price'] = round($this->data['closingStock'][$i]['rate']*$this->data['closingStock'][$i]['quantity'],2);
 			
 				$params = null;
 				
-			}
+			// echo"<pre>";
+					// print_r($this->data['closingStock'][$i]);
+					// echo"</pre>";
+					
+				}
+				
+				// return true;
+
 			$array = $this->data['closingStock'];
 					$result = array();
 					foreach ($array as $val) {
