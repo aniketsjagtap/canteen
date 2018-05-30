@@ -76,7 +76,7 @@ class acc_master_sale_types extends CI_Controller{
 					
 					);
 				$this->Acc_salesType_model->add_saleType($params);            
-				redirect('Acc_master_sale_types/index');
+				redirect('acc_master_sale_types/index');
 			}else{
 				
 				$user_role = $this->User_model->loadRoles($user['person_id']);
@@ -92,7 +92,7 @@ class acc_master_sale_types extends CI_Controller{
 			
 				$this->template
 					->title('Welcome','My Aapp')
-					->build('Acc_master_sale_types/add',$this->data);
+					->build('acc_master_sale_types/add',$this->data);
 			}
 		}
 		else{
