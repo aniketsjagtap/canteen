@@ -4,7 +4,7 @@
             <div class="box-header">
                 <h3 class="box-title">Account Sale Types Listing</h3>
             	<div class="box-tools">
-                    <a href="<?php echo site_url('acc_sales/add');?>" class="btn btn-success btn-sm">Add</a> 
+                    <a href="<?php echo site_url('acc_master_sale_types/add');?>" class="btn btn-success btn-sm">Add</a> 
 					
                 </div>
             </div>

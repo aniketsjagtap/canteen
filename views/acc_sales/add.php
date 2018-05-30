@@ -19,7 +19,7 @@ $(document).ready(function(){
 		startView: 2,
 		minView: 2,
 		forceParse: 0,
-		startDate: '-30d'
+		startDate: '-90d'
     });
 	var maxField = 30; //Input fields increment limitation
 	var addButton1 = $('.add_row'); //Add button selector

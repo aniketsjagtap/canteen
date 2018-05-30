@@ -67,29 +67,16 @@ class acc_master_sale_types extends CI_Controller{
 				return false;
 			}
 			
-				// $this->form_validation->set_rules('location_id', '<b>Location</b>', 'trim|required');
-				// $this->form_validation->set_rules('amount', '<b>Amount</b>','trim|required|integer|min_length[1]|max_length[4]');
-				$this->form_validation->set_rules('dtp_input2', '<b>Date</b>', 'trim|required');
-				
-			if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
+			if(isset($_POST) && count($_POST) > 0 )     
 			{     
-				list($part1,$part2) = explode(' ', date("Y-m-d H:i:s",strtotime($this->input->post('dtp_input2'))));
-				list($year, $month, $day) = explode('-', $part1);
-				list($hours, $minutes,$seconds) = explode(':', $part2);
-				$timeto =  mktime($hours, $minutes, $seconds, $month, $day, $year);
-				//echo $timeto;
+				
 				$params = array(
-					'location_id' => $this->input->post('location_id'),
-					'acc_salesType_id' => $this->input->post('salesType_id'),
-					'sale' => $this->input->post('amount'),
-					'date' => $timeto,
-					'remark' => $this->input->post('remark'),
+						'name' => $this->input->post('saleType'),
+						'description' => $this->input->post('saleDescription'),
+					
 					);
-				// $release_date=$_POST['dtp_input2'];
-				//echo date("Y-m-d H:i:s",strtotime($release_date));
-				// print_r($params);
-				$sale_id = $this->Acc_sales_model->add_sale($params);
-				redirect('acc_sales/index');
+				$this->Acc_salesType_model->add_saleType($params);            
+				redirect('Acc_master_sale_types/index');
 			}else{
 				
 				$user_role = $this->User_model->loadRoles($user['person_id']);
@@ -101,17 +88,11 @@ class acc_master_sale_types extends CI_Controller{
 				
 				$this->data['pp'] = $specialPerm;
 				$this->data['p_role'] = $this->Person_role_model->get_person_role($id);
-				$this->data['sales'] = $this->Acc_sales_model->get_all_acc_sales();
 				$this->data['saleType'] = $this->Acc_salesType_model->get_all_saleType();
-				$this->data['location'] = $this->Location_model->get_all_location();
-				
-				
-				$this->data['product'] = $this->Product_model->get_all_product();
-				$this->data['unit'] = $this->Unit_model->get_all_units();
-				
+			
 				$this->template
 					->title('Welcome','My Aapp')
-					->build('acc_sales/add',$this->data);
+					->build('Acc_master_sale_types/add',$this->data);
 			}
 		}
 		else{

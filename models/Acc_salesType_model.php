@@ -51,8 +51,17 @@ class Acc_salesType_model extends CI_Model
 			 // // print_r($tmp);
 		// }
 		// return true;
-        $this->db->insert('acc_sales_types',$params);
-        return $this->db->insert_id();
+        // $this->db->insert('acc_sales_types',$params);
+        // return $this->db->insert_id();
+		
+		$len = sizeof($params['name']);
+		for($i=0;$i<$len;$i++){
+			$tmp['name'] = $params['name'][$i];
+			$tmp['description'] = $params['name'][$i];
+			$this->db->insert('acc_sales_types',$tmp);
+			$this->db->insert_id();
+		}
+		return true;
     }
     
     /*

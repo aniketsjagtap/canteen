@@ -223,7 +223,7 @@ function searchTable(inputVal)
 .formula_wrapper div,.messformula_wrapper div{ margin-bottom:10px;}
 .select_wrapper div{ margin-bottom:10px;}
 .sales_wrapper div,.expenses_wrapper div,.expenses_wrapper div{ margin-bottom:10px;}
-.expense_wrapper div,.expenseType_wrapper div,.description_wrapper div{ margin-bottom:10px;}
+.expense_wrapper div,.SaleType_wrapper div,.expenseType_wrapper div,.description_wrapper div{ margin-bottom:10px;}
 .expenseItem_wrapper div,.expenseSubtype_wrapper div,.expenseDescription_wrapper div{ margin-bottom:10px;}
 .quantity_wrapper div,.order_quantity_wrapper div{ margin-bottom:10px;}
 .amount_wrapper div,.order_quantity_wrapper div{ margin-bottom:10px;}
@@ -658,7 +658,7 @@ table.dataTable thead .sorting_desc_disabled { background: url("<?=base_url('the
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right idden-xs">
-      <b>Version</b> 1.6.7
+      <b>Version</b> 1.6.8
     </div>
    <small> Designed & Developed by: </small> <strong><a href="http://jagtechno.com" target="_blank">JagTechno</a></strong> 
   </footer>
