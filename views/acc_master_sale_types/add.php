@@ -53,7 +53,7 @@ $(document).ready(function(){
               	<h3 class="box-title">Account Sale Types Add</h3>
             </div>
 			
-            <?php echo form_open('acc_master_Sale_types/add'); ?>
+            <?php echo form_open('Acc_master_sale_types/add'); ?>
           	<div class="box-body">
           		<div class="row clearfix">
 					
