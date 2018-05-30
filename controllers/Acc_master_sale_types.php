@@ -92,7 +92,7 @@ class acc_master_sale_types extends CI_Controller{
 			
 				$this->template
 					->title('Welcome','My Aapp')
-					->build('Acc_master_sale_types/add',$this->data);
+					->build('acc_master_sale_types/add',$this->data);
 			}
 		}
 		else{
