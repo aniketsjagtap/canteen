@@ -61,7 +61,7 @@ $(document).ready(function(){
 								<select required name="location_id" class="form-control"> 
 									<option value="">Select Location</Option>
 									<?php 
-									var_dump($location);
+									
 									foreach($location as $key => $value){ ?>
 										<option value="<?php echo $value['id'];?>"><?php echo $value['name']." : ".$value['address'];?></option> 
 									<?php } ?>

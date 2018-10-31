@@ -71,7 +71,7 @@ function index()
 			
 			$this->form_validation->set_rules('dtp_input1', '<b>Opening Stock Date</b>', 'trim|required');
 			$this->form_validation->set_rules('dtp_input2', '<b>Closing Stock Date</b>', 'trim|required');
-			
+			$this->form_validation->set_rules('location_id', '<b>Location</b>', 'trim|required|integer');
 			if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
 			{     
 				list($part1,$part2) = explode(' ', date("Y-m-d H:i:s",strtotime($this->input->post('dtp_input1'))));
@@ -87,6 +87,7 @@ function index()
 				if($this->User_model->hasPermission('WILD_CARD',$id)){
 				
 					$params = array(
+						'location_id' => $this->input->post('location_id'),
 						'opening_date' => $opening,
 						'closing_date' => $closing,
 						);
