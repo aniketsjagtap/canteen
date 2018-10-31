@@ -71,6 +71,7 @@ function index()
 			
 			$this->form_validation->set_rules('dtp_input1', '<b>Opening Stock Date</b>', 'trim|required');
 			$this->form_validation->set_rules('dtp_input2', '<b>Closing Stock Date</b>', 'trim|required');
+			$this->form_validation->set_rules('location_id', '<b>Location</b>', 'trim|required|integer');
 			
 			if(isset($_POST) && count($_POST) > 0 && $this->form_validation->run())     
 			{     
@@ -89,6 +90,7 @@ function index()
 					$params = array(
 						'opening_date' => $opening,
 						'closing_date' => $closing,
+						'location_id' => $this->input->post('location_id'),
 						);
 					$this->data['stock'] = $this->Stock_model->get_all_stock($params);
 					 // print_r($params);

@@ -53,7 +53,21 @@ $(document).ready(function(){
 					</div>
 				</div>
 				
-				
+				<div class="col-md-12">
+					<label for="location_id" class="control-label">Location *</label>
+					<div class="form-group">
+						
+							<div>
+								<select required name="location_id" class="form-control"> 
+									<option value="">Select Location</Option>
+									<?php foreach($location as $key => $value){ ?>
+										<option value="<?php echo $value['id'];?>"><?php echo $value['name']." : ".$value['address'];?></option> 
+									<?php } ?>
+								</select>
+							</div>
+						
+					</div>
+				</div>
 				
 					
 					

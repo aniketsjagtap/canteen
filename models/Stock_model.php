@@ -26,7 +26,7 @@ class Stock_model extends CI_Model
     {
         // $this->db->order_by('location_id', 'desc');
         // return $this->db->get('stock')->result_array();
-		$this->db->where('(date >= "'. $params['opening_date'] . '" and date <= "'. $params['closing_date'] .'" )');
+		$this->db->where('(date >= "'. $params['opening_date'] . '" and date <= "'. $params['closing_date']  .'" )and location_id='. $params['location_id']);
 		return $this->db->get('stock')->result_array();
     }
 	/*
